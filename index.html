@@ -465,12 +465,42 @@
             padding-bottom: 5rem;
         }
         
-        .about-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 1000px;
+        .about-overlay {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
             margin: 0 auto;
+        }
+        
+        .about-overlay h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #00d4ff, #7700ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .about-overlay h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, #00d4ff, #7700ff);
+            border-radius: 3px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
         
         .profile-container {
@@ -483,6 +513,7 @@
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
+            object-position: center;
             border: 3px solid transparent;
             background: linear-gradient(45deg, #00d4ff, #7700ff) border-box;
             -webkit-mask: 
@@ -494,6 +525,8 @@
                 0 0 20px rgba(0, 212, 255, 0.3),
                 0 0 60px rgba(119, 0, 255, 0.1);
             transition: all 0.5s ease;
+            max-width: 100%;
+            height: auto;
         }
         
         .profile-container:hover .profile-img {
@@ -536,12 +569,12 @@
             100% { transform: scale(1); opacity: 0.7; }
         }
         
-        #about .bio {
+        .about-text {
             text-align: center;
             margin-bottom: 3rem;
         }
         
-        #about .bio p {
+        #about .bio {
             color: #d4d4d4;
             font-size: 1.1rem;
             line-height: 1.8;
@@ -713,23 +746,6 @@
             line-height: 1.6;
         }
 
-        .project-card .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: auto;
-        }
-
-        .project-card .tag {
-            background: rgba(0, 212, 255, 0.1);
-            color: #00d4ff;
-            padding: 0.3rem 0.7rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        
         .project-card .card-overlay {
             position: absolute;
             top: 0;
@@ -960,141 +976,6 @@
             margin-top: 1rem;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 5, 16, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.4s ease;
-            overflow-y: auto;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, rgba(15, 15, 30, 0.9), rgba(30, 30, 60, 0.9));
-            padding: 2.5rem;
-            border-radius: 20px;
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        
-        .modal.show .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .modal-content .close {
-            top: 1.5rem;
-            right: 1.5rem;
-            color: #ff00cc;
-            transition: all 0.3s;
-        }
-        
-        .modal-content .close:hover {
-            color: #7700ff;
-            transform: rotate(90deg);
-        }
-
-        #modal-title {
-            font-size: 1.8rem;
-            color: #fff;
-            margin-bottom: 1.25rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        #modal-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(45deg, #00d4ff, #7700ff);
-            border-radius: 3px;
-        }
-
-        #modal-desc {
-            color: #d4d4d4;
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        #modal-link {
-            background: linear-gradient(45deg, #00d4ff, #7700ff);
-            padding: 0.75rem 1.75rem;
-            border-radius: 30px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
-        }
-        
-        #modal-link i {
-            font-size: 1rem;
-        }
-
-        #modal-link:hover {
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
-            transform: translateY(-3px);
-        }
-        
-        .modal-img {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-        }
-        
-        @media (max-width: 768px) {
-            .modal-content {
-                padding: 2rem 1.5rem;
-            }
-            
-            #modal-title {
-                font-size: 1.5rem;
-            }
-            
-            .modal-img {
-                max-height: 200px;
-            }
-        }
-
         /* Navigation Improvements */
         .menu a.active {
             color: #00d4ff;
@@ -1190,31 +1071,31 @@
     </section>
 
     <section id="about" class="section">
-        <h2>About Me</h2>
-        <div class="about-container">
-            <div class="profile-container">
-                <img src="photo.jpg" alt="Profile" class="profile-img">
-                <div class="glow-circle"></div>
-            </div>
-            <div class="bio">
-                <p>Hi, I am <span class="highlight">Dusan Hajek</span> an AI enthusiast and researcher pushing the boundaries of what's possible.</p>
-                
-                <div class="skills">
-                    <div class="skill-item">
-                        <i class="fas fa-robot"></i>
-                        <span class="skill-name">AI Research</span>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fas fa-brain"></i>
-                        <span class="skill-name">Data Visualization</span>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fas fa-code"></i>
-                        <span class="skill-name">Vibe Coding</span>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fas fa-mobile-alt"></i>
-                        <span class="skill-name">Prompt Engineering</span>
+        <div class="about-overlay">
+            <h2>ABOUT ME</h2>
+            <div class="about-content">
+                <div class="profile-container">
+                    <img src="photo.jpg" alt="Dusan Hajek" class="profile-img">
+                </div>
+                <div class="about-text">
+                    <p>Hi, I am <span class="highlight">Dusan Hajek</span> an AI enthusiast and researcher pushing the boundaries of what's possible.</p>
+                    <div class="skills">
+                        <div class="skill-item">
+                            <i class="fas fa-robot"></i>
+                            <span class="skill-name">AI Research</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-brain"></i>
+                            <span class="skill-name">Data Visualization</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <span class="skill-name">Vibe Coding</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span class="skill-name">Prompt Engineering</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1225,49 +1106,34 @@
         <h2>My Projects</h2>
         <div class="projects-container">
             <div class="project-grid">
-                <div class="project-card" data-title="AI Assistant" data-desc="A personal AI assistant that helps manage your day-to-day tasks with advanced natural language processing and intelligent automation. Built with cutting-edge machine learning algorithms." data-url="https://example.com/project1" data-img="https://via.placeholder.com/600x400">
+                <div class="project-card" onclick="window.open('http://duskyhajek.github.io/pexeso_ai', '_blank')">
                     <div class="card-img-container">
-                        <img src="project1.png" alt="AI Assistant Project" loading="lazy">
+                        <img src="project1.png" alt="AI Pexeso Game" loading="lazy">
                         <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
-                        <h3>AI Pexeso      Game</h3>
+                        <h3>AI Pexeso Game</h3>
                         <p>A fun, interactive memory matching game for children, vibecoding with AI</p>
-                        <div class="tags">
-                            <span class="tag">AI</span>
-                            <span class="tag">Python</span>
-                            <span class="tag">NLP</span>
-                        </div>
                     </div>
                 </div>
-                <div class="project-card" data-title="Image Generation AI" data-desc="A creative tool that uses deep learning to generate stunning, unique images from text descriptions. This project demonstrates the incredible possibilities at the intersection of AI and art." data-url="https://example.com/project2" data-img="https://via.placeholder.com/600x400">
+                <div class="project-card" onclick="window.open('http://duskyhajek.github.io/bitcoin_price/', '_blank')">
                     <div class="card-img-container">
-                        <img src="project2.png" alt="Image Generation Project" loading="lazy">
+                        <img src="project2.png" alt="Bitcoin Price Tracker" loading="lazy">
                         <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
                         <h3>Bitcoin Price Tracker</h3>
                         <p>Web application displaying real-time Bitcoin price, vibecoding with AI</p>
-                        <div class="tags">
-                            <span class="tag">Deep Learning</span>
-                            <span class="tag">TensorFlow</span>
-                            <span class="tag">Art</span>
-                        </div>
                     </div>
                 </div>
-                <div class="project-card" data-title="Smart Data Analysis" data-desc="An intelligent data analysis platform that leverages machine learning to provide actionable insights from complex datasets. Perfect for businesses looking to harness the power of their data." data-url="https://example.com/project3" data-img="https://via.placeholder.com/600x400">
+                <div class="project-card" onclick="window.open('http://duskyhajek.github.io/beer-space-shooter/', '_blank')">
                     <div class="card-img-container">
-                        <img src="project3.png" alt="Data Analysis Project" loading="lazy">
+                        <img src="project3.png" alt="Beer Shooter Game" loading="lazy">
                         <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
                         <h3>Beer Shooter Game</h3>
                         <p>A fun arcade-style beer shooter game, vibecoding with AI</p>
-                        <div class="tags">
-                            <span class="tag">Data Science</span>
-                            <span class="tag">Machine Learning</span>
-                            <span class="tag">Visualization</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1280,10 +1146,10 @@
             <div class="contact-text">
                 <p>Interested in collaborating or have questions about AI technology? Let's connect!</p>
                 <div class="contact-icons">
-                    <a href="#" class="contact-icon"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="contact-icon"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/dusan-hajek-16b630171/" target="_blank" class="contact-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/DuskyHajek" target="_blank" class="contact-icon"><i class="fab fa-github"></i></a>
                     <a href="mailto:your-email@example.com" class="contact-icon"><i class="fas fa-envelope"></i></a>
-                    <a href="#" class="contact-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://twitter.com/DuskyHajek" target="_blank" class="contact-icon"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
             <form action="https://formspree.io/your-email@example.com" method="POST" id="contact-form">
@@ -1322,18 +1188,6 @@
             </div>
         </div>
     </footer>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <button id="modal-close" class="close"><i class="fas fa-times"></i></button>
-            <img id="modal-img" src="" alt="Project Preview" class="modal-img">
-            <h3 id="modal-title"></h3>
-            <p id="modal-desc"></p>
-            <div class="modal-actions">
-                <a id="modal-link" href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Visit Project</a>
-            </div>
-        </div>
-    </div>
 
     <script>
         // Loading screen
@@ -1426,54 +1280,6 @@
         // Close menu when clicking a menu link
         menuLinks.forEach(link => {
             link.addEventListener('click', () => menu.classList.remove('show'));
-        });
-
-        // Modal
-        const modal = document.getElementById('modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDesc = document.getElementById('modal-desc');
-        const modalLink = document.getElementById('modal-link');
-        const modalImg = document.getElementById('modal-img');
-        const modalClose = document.getElementById('modal-close');
-
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('click', () => {
-                modalTitle.textContent = card.dataset.title;
-                modalDesc.textContent = card.dataset.desc;
-                modalLink.href = card.dataset.url;
-                modalImg.src = card.dataset.img || card.querySelector('img').src;
-                modal.style.display = 'flex';
-                setTimeout(() => {
-                    modal.classList.add('show');
-                }, 10);
-            });
-        });
-
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-        
-        function closeModal() {
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 400);
-        }
-
-        // Handle Escape key to close modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                closeModal();
-            }
-        });
-
-        // Swipe to close modal on mobile
-        let touchStartY = 0;
-        modal.addEventListener('touchstart', (e) => touchStartY = e.touches[0].clientY);
-        modal.addEventListener('touchmove', (e) => {
-            const touchY = e.touches[0].clientY;
-            if (touchY - touchStartY > 80) closeModal();
         });
 
         // Form submission handling
