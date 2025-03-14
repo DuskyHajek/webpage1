@@ -460,7 +460,7 @@
 
         /* About Section */
         #about {
-            background: linear-gradient(to bottom, #050510, #0a0a20);
+            background: #050510;
             padding-top: 7rem;
             padding-bottom: 5rem;
         }
@@ -470,17 +470,16 @@
             z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
+            text-align: center;
         }
         
         .about-overlay h2 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            background: linear-gradient(45deg, #00d4ff, #7700ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
+            color: #00d4ff;
+            letter-spacing: 4px;
             position: relative;
+            display: inline-block;
         }
         
         .about-overlay h2::after {
@@ -497,161 +496,82 @@
 
         .about-content {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 2.5rem;
             margin-top: 3rem;
         }
         
         .profile-container {
             position: relative;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 2px solid #00d4ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
         
         #about .profile-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             object-position: center;
-            border: 3px solid transparent;
-            background: linear-gradient(45deg, #00d4ff, #7700ff) border-box;
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) padding-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            box-shadow: 
-                0 0 20px rgba(0, 212, 255, 0.3),
-                0 0 60px rgba(119, 0, 255, 0.1);
-            transition: all 0.5s ease;
-            max-width: 100%;
-            height: auto;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
         }
         
         .profile-container:hover .profile-img {
             transform: scale(1.05);
-            box-shadow: 
-                0 0 30px rgba(0, 212, 255, 0.5),
-                0 0 80px rgba(119, 0, 255, 0.2);
-        }
-        
-        .glow-circle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            background: transparent;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .glow-circle::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 50%;
-            background: transparent;
-            border: 1px solid rgba(119, 0, 255, 0.3);
-            animation: pulseCircle 3s infinite;
-        }
-        
-        @keyframes pulseCircle {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 0.3; }
-            100% { transform: scale(1); opacity: 0.7; }
         }
         
         .about-text {
             text-align: center;
-            margin-bottom: 3rem;
+            max-width: 600px;
         }
         
-        #about .bio {
-            color: #d4d4d4;
+        .about-text p {
+            color: #b4b4b4;
             font-size: 1.1rem;
-            line-height: 1.8;
+            line-height: 1.6;
+            margin-bottom: 2rem;
         }
         
-        .highlight {
-            color: #00d4ff;
-            font-weight: 600;
-        }
-
         .skills {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-            width: 100%;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
-
+        
         .skill-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.75rem;
-            background: rgba(10, 10, 30, 0.5);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 12px;
-            min-width: 150px;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            gap: 0.5rem;
+            color: #00d4ff;
+            transition: transform 0.3s ease;
         }
         
         .skill-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.15);
-            border-color: rgba(0, 212, 255, 0.3);
-        }
-
-        .skill-item i {
-            font-size: 2.5rem;
-            color: #00d4ff;
-            transition: all 0.3s;
         }
         
-        .skill-item:hover i {
-            transform: scale(1.1);
-            color: #7700ff;
+        .skill-item i {
+            font-size: 2rem;
         }
         
         .skill-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            color: #fff;
-        }
-        
-        @media (max-width: 768px) {
-            #about .profile-img {
-                width: 160px;
-                height: 160px;
-            }
-            
-            .glow-circle {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .skill-item {
-                min-width: 120px;
-                padding: 1.25rem;
-            }
-            
-            .skill-item i {
-                font-size: 2rem;
-            }
         }
 
         /* Projects Section */
@@ -1075,7 +995,9 @@
             <h2>ABOUT ME</h2>
             <div class="about-content">
                 <div class="profile-container">
-                    <img src="photo.jpg" alt="Dusan Hajek" class="profile-img">
+                    <div class="profile-circle">
+                        <img src="photo.jpg" alt="Dusan Hajek" class="profile-img">
+                    </div>
                 </div>
                 <div class="about-text">
                     <p>Hi, I am <span class="highlight">Dusan Hajek</span> an AI enthusiast and researcher pushing the boundaries of what's possible.</p>
@@ -1133,7 +1055,17 @@
                     </div>
                     <div class="card-content">
                         <h3>Beer Shooter Game</h3>
-                        <p>A fun arcade-style beer shooter game, vibecoding with AI</p>
+                        <p>A fun arcade-style space shooter game with a beer theme, vibecoding with AI</p>
+                    </div>
+                </div>
+                <div class="project-card" onclick="window.open('https://duskyhajek.github.io/tilt_app/', '_blank')">
+                    <div class="card-img-container">
+                        <img src="project4.png" alt="Poker Tilt App" loading="lazy">
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Poker Tilt App</h3>
+                        <p>A mobile web-based application designed to help poker players manage their emotions</p>
                     </div>
                 </div>
             </div>
