@@ -7,12 +7,22 @@
     <meta name="theme-color" content="#001a33">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="duskyAI | Exploring the Future">
+    <meta property="og:description" content="Where curiosity meets creation, and AI becomes your co-pilot for technology projects.">
+    <meta property="og:image" content="assets/images/logo.png">
+    <meta property="og:url" content="https://duskyai.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <title>duskyAI | Exploring the Future</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <!-- Loading screen -->
@@ -23,8 +33,7 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">
-            <i class="fas fa-robot"></i>
-            duskyAI
+            <img src="assets/images/logo.png" alt="duskyAI logo" class="logo-img">
         </div>
         <button id="menu-toggle" class="hamburger"><i class="fas fa-bars"></i></button>
         <div id="menu" class="menu">
@@ -42,9 +51,17 @@
     <section id="home" class="section">
         <div class="particles" id="particles"></div>
         <div class="home-content">
-            <h1>Welcome to the <span>duskyAI</span></h1>
-            <p>Discover the limitless possibilities of artificial intelligence and explore cutting-edge projects that are shaping tomorrow's world.</p>
-            <a href="#projects" class="cta-btn"><i class="fas fa-rocket"></i> Lights, camera, action!</a>
+            <div class="logo-animation-container">
+                <img src="assets/images/logo.png" alt="duskyAI logo" class="animated-logo">
+                <div class="logo-glow"></div>
+            </div>
+            <h1>Welcome</h1>
+            <p>Where curiosity meets creation, and AI becomes your co-pilot.
+                I'm Dusky, and this is my space to explore the future — one where artificial intelligence isn't just for tech wizards, but for anyone with an idea and a spark. From apps to art to automation, I'm here to prove that AI can amplify what regular people like us can do.
+                </p>
+            <a href="#projects" class="cta-btn"><i class="fas fa-rocket"></i> Step into my lab
+
+            </a>
         </div>
         <a href="#about" class="scroll-indicator"><i class="fas fa-chevron-down"></i></a>
     </section>
@@ -54,38 +71,54 @@
         <h2>ABOUT ME</h2>
         <div class="container">
             <div class="profile-circle">
-                <img src="photo.jpg" alt="Dusan Hajek" class="profile-img">
+                <img src="assets/images/photo.jpg" alt="Dusan Hajek" class="profile-img">
             </div>
-            <p>Hi, I am <span class="highlight">Dusan Hajek</span> an AI enthusiast and researcher pushing the boundaries of what's possible.</p>
-            <div class="skills">
-                <div class="skill-item">
-                    <i class="fas fa-robot"></i>
-                    <span class="skill-name">AI Research</span>
+            <p>Hi, my name is <span class="highlight">Dusan Hajek</span> and I'm no AI genius or corporate big shot — just a curious soul who believes technology should be for everyone. It all started with a simple "what if": What if AI could help regular people like me bring wild ideas to life? That question ignited duskyAI, a project where I experiment with AI tools and share what I discover.
+                Let's unlock the possibilities, one experiment at a time.
+
+
+            </p>
+            
+            <!-- AI Collaboration Visualization -->
+            <div class="ai-collab-visual">
+                <div class="human-element">
+                    <div class="human-circle">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Human</span>
                 </div>
-                <div class="skill-item">
-                    <i class="fas fa-brain"></i>
-                    <span class="skill-name">Data Visualization</span>
+                <div class="connection-path">
+                    <div class="connection-particles-container"></div>
                 </div>
-                <div class="skill-item">
-                    <i class="fas fa-code"></i>
-                    <span class="skill-name">Vibe Coding</span>
-                </div>
-                <div class="skill-item">
-                    <i class="fas fa-mobile-alt"></i>
-                    <span class="skill-name">Prompt Engineering</span>
+                <div class="ai-element">
+                    <div class="ai-circle">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <span>AI</span>
                 </div>
             </div>
-        </div>
+             
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="section">
         <h2>My Projects</h2>
         <div class="container">
+            <p>This is my showcase of small projects and experiments - browse, get inspired, and borrow a few ideas for your own AI-powered adventure.</p>
             <div class="project-grid">
+                <div class="project-card" onclick="window.open('https://duskyhajek.github.io/tiltoff/', '_blank')">
+                    <div class="card-img-container">
+                        <img src="assets/images/projects/project4.png" alt="TiltOff - Poker Tilt App" loading="lazy">
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <h3>TiltOff - Poker Tilt App</h3>
+                        <p>A mobile web-based application designed to help poker players manage their emotions</p>
+                    </div>
+                </div>
                 <div class="project-card" onclick="window.open('http://duskyhajek.github.io/pexeso_ai', '_blank')">
                     <div class="card-img-container">
-                        <img src="project1.png" alt="AI Pexeso Game" loading="lazy">
+                        <img src="assets/images/projects/project1.png" alt="AI Pexeso Game" loading="lazy">
                         <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
@@ -95,7 +128,7 @@
                 </div>
                 <div class="project-card" onclick="window.open('http://duskyhajek.github.io/bitcoin_price/', '_blank')">
                     <div class="card-img-container">
-                        <img src="project2.png" alt="Bitcoin Price Tracker" loading="lazy">
+                        <img src="assets/images/projects/project2.png" alt="Bitcoin Price Tracker" loading="lazy">
                         <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
@@ -105,22 +138,12 @@
                 </div>
                 <div class="project-card" onclick="window.open('http://duskyhajek.github.io/beer-space-shooter/', '_blank')">
                     <div class="card-img-container">
-                        <img src="project3.png" alt="Beer Shooter Game" loading="lazy">
+                        <img src="assets/images/projects/project3.png" alt="Beer Shooter Game" loading="lazy">
                         <div class="card-overlay"></div>
                     </div>
                     <div class="card-content">
                         <h3>Beer Shooter Game</h3>
                         <p>A fun arcade-style space shooter game with a beer theme, vibecoding with AI</p>
-                    </div>
-                </div>
-                <div class="project-card" onclick="window.open('https://duskyhajek.github.io/tilt_app/', '_blank')">
-                    <div class="card-img-container">
-                        <img src="project4.png" alt="Poker Tilt App" loading="lazy">
-                        <div class="card-overlay"></div>
-                    </div>
-                    <div class="card-content">
-                        <h3>Poker Tilt App</h3>
-                        <p>A mobile web-based application designed to help poker players manage their emotions</p>
                     </div>
                 </div>
             </div>
@@ -131,14 +154,19 @@
     <section id="contact" class="section">
         <h2>Contact Me</h2>
         <div class="container">
-            <p>Interested in collaborating or have questions about AI technology? Let's connect!</p>
+            <div class="contact-header">
+                <img src="assets/images/logo.png" alt="duskyAI logo" class="contact-logo">
+                <p>Interested in collaborating or have questions about AI technology? Let's connect — human to human, with a dash of AI.
+
+                </p>
+            </div>
             <div class="contact-icons">
                 <a href="https://www.linkedin.com/in/dusan-hajek-16b630171/" target="_blank" class="contact-icon"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/DuskyHajek" target="_blank" class="contact-icon"><i class="fab fa-github"></i></a>
-                <a href="mailto:your-email@example.com" class="contact-icon"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:hello@duskyai.com" class="contact-icon"><i class="fas fa-envelope"></i></a>
                 <a href="https://twitter.com/DuskyHajek" target="_blank" class="contact-icon"><i class="fab fa-twitter"></i></a>
             </div>
-            <form action="https://formspree.io/your-email@example.com" method="POST" id="contact-form">
+            <form action="https://formspree.io/f/hello@duskyai.com" method="POST" id="contact-form">
                 <div class="form-group">
                     <label for="name">Your Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your name" required>
@@ -176,6 +204,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
