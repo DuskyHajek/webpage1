@@ -113,36 +113,44 @@ function setupContactForm() {
     const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
-            // Prevent the default form submission
-            event.preventDefault();
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            // Create a new FormData object from the form
-            const formData = new FormData(contactForm);
-            
-            // Submit the form data to Formspree using fetch
-            fetch(contactForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
                 if (response.ok) {
-                    return response.json();
+                    // Show thank you message and hide form fields
+                    const thankYouMessage = document.getElementById('thank-you-message');
+                    const formGroups = contactForm.querySelectorAll('.form-group, button[type="submit"]');
+                    
+                    // Hide form fields
+                    formGroups.forEach(element => {
+                        element.style.display = 'none';
+                    });
+                    
+                    // Show thank you message
+                    if (thankYouMessage) {
+                        thankYouMessage.style.display = 'block';
+                    }
+                    
+                    // Reset the form
+                    contactForm.reset();
+                } else {
+                    // Handle errors
+                    console.error('Form submission error');
+                    alert('Something went wrong. Please try again later.');
                 }
-                throw new Error('Network response was not ok.');
-            })
-            .then(data => {
-                // Show success message
-                contactForm.innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank you for your message!</h3><p>I\'ll get back to you as soon as possible.</p></div>';
-            })
-            .catch(error => {
-                // Show error message
-                console.error('Error:', error);
-                contactForm.innerHTML += '<div class="form-error"><i class="fas fa-exclamation-circle"></i><p>Sorry, there was a problem sending your message. Please try again or email directly to hello@duskyai.com</p></div>';
-            });
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert('Something went wrong. Please try again later.');
+            }
         });
     }
 }

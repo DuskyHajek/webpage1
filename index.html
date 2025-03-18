@@ -194,6 +194,13 @@
                     <textarea id="message" name="message" placeholder="What would you like to discuss?" rows="5" required></textarea>
                 </div>
                 <input type="hidden" name="form-name" value="contact">
+                
+                <!-- Add thank you message container that will be shown after submission -->
+                <div id="thank-you-message" style="display: none;" class="thank-you-container">
+                    <p><i class="fas fa-check-circle"></i> Thank you for your message!</p>
+                    <p>I'll get back to you soon.</p>
+                </div>
+                
                 <input type="text" name="_gotcha" style="display:none">
                 <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
             </form>
