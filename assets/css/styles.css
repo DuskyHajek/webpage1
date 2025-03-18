@@ -1134,4 +1134,36 @@ footer {
     margin: 0.5rem auto 2rem;
     font-style: italic;
     opacity: 0.8;
+}
+
+/* Form success and error messages */
+.form-success, .form-error {
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    animation: fadeIn 0.5s;
+}
+
+.form-success {
+    background-color: rgba(0, 128, 0, 0.1);
+    border: 1px solid #00c853;
+    color: #00c853;
+}
+
+.form-error {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid #f44336;
+    color: #f44336;
+}
+
+.form-success i, .form-error i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 } 

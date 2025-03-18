@@ -111,26 +111,38 @@ function setupMenuToggle() {
 // Setup contact form submission
 function setupContactForm() {
     const contactForm = document.getElementById('contact-form');
-    const formSuccess = document.getElementById('form-success');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        contactForm.addEventListener('submit', function(event) {
+            // Prevent the default form submission
+            event.preventDefault();
             
-            // Hide form fields and submit button
-            Array.from(contactForm.elements).forEach(el => {
-                el.style.display = 'none';
+            // Create a new FormData object from the form
+            const formData = new FormData(contactForm);
+            
+            // Submit the form data to Formspree using fetch
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Show success message
+                contactForm.innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank you for your message!</h3><p>I\'ll get back to you as soon as possible.</p></div>';
+            })
+            .catch(error => {
+                // Show error message
+                console.error('Error:', error);
+                contactForm.innerHTML += '<div class="form-error"><i class="fas fa-exclamation-circle"></i><p>Sorry, there was a problem sending your message. Please try again or email directly to hello@duskyai.com</p></div>';
             });
-            
-            // Show success message
-            if (formSuccess) {
-                formSuccess.style.display = 'block';
-            }
-            
-            // Reset form (hidden but reset)
-            setTimeout(() => {
-                contactForm.reset();
-            }, 1000);
         });
     }
 }
