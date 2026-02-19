@@ -1,62 +1,44 @@
-# duskyAI Personal Website
+# duskyAI (v2.0)
 
-A modern, responsive personal website showcasing AI projects and experiments.
+Minimal, high-impact personal portfolio for Dusan Hajek.
+**Live:** https://www.duskyai.com/
 
-## Overview
+## Key Features
+- **Minimal 1300px Layout**: Focused, centered design with plenty of negative space.
+- **Full-Screen Lightbox Gallery**: Custom-built JS gallery for high-quality AI visuals (@duskylab).
+- **Auto-Loading Visuals**: 
+  - **Production:** PHP API (`api/visuals.php`) scans `assets/images/visuals/` automatically.
+  - **Vercel/Local:** Uses `assets/images/visuals/manifest.json` as a fallback.
+- **Micro-Interactions**: Hover previews for projects, smooth page transitions.
 
-This website serves as a portfolio and personal showcase for Dusan Hajek's AI-related projects. The website features a clean, modern design with interactive elements and responsive layout to provide an optimal viewing experience across all devices.
-
-## Features
-
-- Modern, responsive design with dark theme
-- Animated elements using CSS and JavaScript
-- Interactive project cards with hover effects
-- Particle animation in the background
-- Smooth scrolling navigation
-- AI/Human collaboration visualization
-- Contact form integration with Formspree
-
-## Technologies Used
-
-- HTML5
-- CSS3 (with custom animations and transitions)
-- JavaScript (vanilla JS)
-- Font Awesome for icons
-- Google Fonts (Inter and Orbitron)
-- Formspree for contact form handling
-
-## File Structure
-
+## Project Structure
 ```
 duskyAI2/
-├── index.html                  # Main HTML file
+├── index.html                  # Main entry point
+├── api/
+│   └── visuals.php             # PHP API for auto-scanning gallery images
 ├── assets/
-│   ├── css/
-│   │   └── styles.css         # All styles
-│   ├── js/
-│   │   └── script.js          # JavaScript functionality
-│   ├── images/
-│   │   ├── logo.png           # Site logo
-│   │   ├── photo.jpg          # Profile photo
-│   │   └── projects/          # Project screenshots
-│   │       ├── project1.png
-│   │       ├── project2.png
-│   │       ├── project3.png
-│   │       └── project4.png
-├── favicon.ico                 # Site favicon
-└── README.md                   # This file
+│   ├── css/styles.css          # All styles (CSS variables, layout, lightbox)
+│   ├── js/script.js            # Lightbox logic, API fetching, interactions
+│   └── images/
+│       ├── logo.png            # Main logo & favicon
+│       ├── photo.jpg           # Profile avatar
+│       ├── projects/           # Hover preview images
+│       └── visuals/            # Gallery assets
+│           ├── manifest.json   # Manual list for Vercel/Static hosting
+│           └── duskylab/       # @duskylab portfolio images
+└── README.md
 ```
 
-## Setup and Deployment
+## How to Add Content
 
-1. Clone the repository or download the files
-2. No build process is required - this is a static website
-3. Deploy to any static hosting service (GitHub Pages, Netlify, Vercel, etc.)
+### Adding a Project
+Edit `PROJECTS` array in `assets/js/script.js`.
 
-## Contact
-
-For any inquiries, please reach out to [hello@duskyai.com](mailto:hello@duskyai.com)
+### Adding Visuals (@duskylab)
+1. Drop image/video files into `assets/images/visuals/duskylab/`.
+2. **For Vercel**: Update `assets/images/visuals/manifest.json` with the new filenames.
+3. **For PHP Host**: No action needed (auto-scanned).
 
 ## License
-
-All rights reserved © 2025 duskyAI 
+© 2026 duskyAI
