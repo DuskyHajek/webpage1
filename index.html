@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="duskyAI — Building with AI so you don't have to figure it out alone.">
+    <title>duskyAI — Dusan Hajek</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- ── Decorative Lines ── -->
+        <div class="deco deco--vline" aria-hidden="true"></div>
+        <div class="deco deco--hline-top" aria-hidden="true"></div>
+        <div class="deco deco--hline-bot" aria-hidden="true"></div>
+
+        <!-- ── Header ── -->
+        <header class="header">
+            <a href="/" class="logo">
+                <img src="assets/images/logo.png" alt="duskyAI" class="logo-img">
+            </a>
+            <a href="mailto:hello@duskyai.com" class="header-email">hello@duskyai.com</a>
+        </header>
+
+        <!-- ── Main Content ── -->
+        <main class="main">
+
+            <!-- Left: Identity -->
+            <section class="col col--left">
+                <div class="identity">
+                    <div class="avatar">
+                        <img src="assets/images/photo.jpg" alt="Dusan Hajek">
+                    </div>
+                    <div>
+                        <h1 class="name">Dusan Hajek</h1>
+                        <p class="role">AI Explorer &amp; Builder</p>
+                    </div>
+                </div>
+
+                <p class="statement">Building with <em>AI</em> so you don't have to figure it out alone.</p>
+
+                <ul class="tags">
+                    <li>Vibecoding</li>
+                    <li>AI Art</li>
+                    <li>Web Dev</li>
+                    <li>Automation</li>
+                </ul>
+
+                <nav class="socials">
+                    <a href="https://www.linkedin.com/in/dusan-hajek-16b630171/" target="_blank"
+                        rel="noopener">LinkedIn</a>
+                    <a href="https://github.com/DuskyHajek" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.instagram.com/duskylab/" target="_blank" rel="noopener">Instagram</a>
+                    <a href="https://twitter.com/duskyAI" target="_blank" rel="noopener">X</a>
+                </nav>
+            </section>
+
+            <!-- Right: Projects -->
+            <section class="col col--right">
+                <h2 class="section-title">Projects</h2>
+                <ul class="projects" id="project-list"></ul>
+            </section>
+
+        </main>
+
+        <!-- ── Footer ── -->
+        <footer class="footer">
+            <span>&copy; 2026 duskyAI</span>
+        </footer>
+
+    </div>
+
+    <!-- ── Lightbox Overlay (Gallery) ── -->
+    <div class="lightbox" id="lightbox">
+        <button class="lb-close" id="lb-close" aria-label="Close gallery">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </button>
+        <div class="lb-counter" id="lb-counter"></div>
+        <button class="lb-arrow lb-prev" id="lb-prev" aria-label="Previous">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        </button>
+        <div class="lb-stage" id="lb-stage"></div>
+        <button class="lb-arrow lb-next" id="lb-next" aria-label="Next">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="9 6 15 12 9 18" />
+            </svg>
+        </button>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,605 @@
+/* ============================================================
+   duskyAI — Minimal & Centered with Full-Screen Lightbox
+   ============================================================ */
+
+/* ── Tokens ── */
+:root {
+    --bg: #FAFAF8;
+    --black: #0F0F0E;
+    --g1: #555553;
+    --g2: #999997;
+    --g3: #D8D8D4;
+    --g4: #F0F0EC;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --display: 'Space Grotesk', var(--sans);
+    --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased
+}
+
+img {
+    display: block;
+    max-width: 100%
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    color: inherit
+}
+
+ul,
+li {
+    list-style: none
+}
+
+::selection {
+    background: rgba(15, 15, 14, .1)
+}
+
+
+/* ── Page ── */
+.page {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+}
+
+
+/* ── Decorative Lines ── */
+.deco {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0
+}
+
+.deco--vline {
+    display: none
+}
+
+/* removed — was interfering with project list */
+
+.deco--hline-top,
+.deco--hline-bot {
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--g3) 20%, var(--g3) 80%, transparent);
+}
+
+.deco--hline-top {
+    top: 64px
+}
+
+.deco--hline-bot {
+    bottom: 44px
+}
+
+
+/* ── Header ── */
+.header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
+.logo-img {
+    width: 160px;
+    height: auto
+}
+
+.header-email {
+    font-size: .8rem;
+    color: var(--g1);
+    letter-spacing: .02em;
+    transition: color .2s;
+}
+
+.header-email:hover {
+    color: var(--black)
+}
+
+
+/* ── Main: 2-column centered ── */
+.main {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    /* Right side slightly wider for project rows */
+    gap: 5rem;
+    align-items: center;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
+
+/* ── Left Column ── */
+.col--left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.identity {
+    display: flex;
+    align-items: center;
+    gap: 1rem
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1.5px solid var(--g3);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+}
+
+.role {
+    font-size: .78rem;
+    color: var(--g2);
+    margin-top: .15rem
+}
+
+.statement {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.38;
+    letter-spacing: -.025em;
+}
+
+.statement em {
+    font-style: normal;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--g3);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .42rem
+}
+
+.tags li {
+    font-size: .7rem;
+    font-weight: 500;
+    padding: .28rem .72rem;
+    border: 1px solid var(--g3);
+    border-radius: 100px;
+    color: var(--g1);
+    transition: border-color .2s, color .2s;
+}
+
+.tags li:hover {
+    border-color: var(--black);
+    color: var(--black)
+}
+
+.socials {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap
+}
+
+.socials a {
+    font-size: .82rem;
+    color: var(--g1);
+    font-weight: 500;
+    position: relative;
+    transition: color .2s;
+}
+
+.socials a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--black);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s var(--ease);
+}
+
+.socials a:hover {
+    color: var(--black)
+}
+
+.socials a:hover::after {
+    transform: scaleX(1)
+}
+
+
+/* ── Right Column: Projects ── */
+.col--right {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-family: var(--display);
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--g2);
+    padding-bottom: .75rem;
+    border-bottom: 1px solid var(--g3);
+    margin-bottom: 0;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column
+}
+
+.project {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .9rem 0;
+    border-bottom: 1px solid var(--g3);
+    cursor: pointer;
+    transition: padding-left .25s var(--ease);
+}
+
+.project:hover {
+    padding-left: .4rem
+}
+
+/* Hover preview (floats above row) */
+.project-preview {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    width: 220px;
+    height: 140px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center top;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .14);
+    border: 1px solid var(--g3);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(.96);
+    transition: opacity .25s var(--ease), transform .25s var(--ease);
+    z-index: 30;
+}
+
+.project.has-preview:hover .project-preview {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.project-body {
+    flex: 1;
+    min-width: 0
+}
+
+.project-name {
+    font-family: var(--display);
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+}
+
+.project-desc {
+    font-size: .75rem;
+    color: var(--g2);
+    margin-top: .18rem;
+}
+
+.project-actions {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-shrink: 0;
+}
+
+/* "Visuals" pill button on @duskylab */
+.btn-gallery {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    font-size: .62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--black);
+    border: 1px solid var(--black);
+    border-radius: 100px;
+    padding: .22rem .6rem;
+    transition: background .2s, color .2s;
+    white-space: nowrap;
+}
+
+.btn-gallery:hover {
+    background: var(--black);
+    color: var(--bg)
+}
+
+.btn-gallery svg {
+    flex-shrink: 0
+}
+
+.project-tag {
+    font-size: .58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--g2);
+    border: 1px solid var(--g3);
+    border-radius: 100px;
+    padding: .18rem .5rem;
+}
+
+.project-arrow {
+    color: var(--g2);
+    display: flex;
+    align-items: center;
+    transition: transform .25s var(--ease), color .2s;
+}
+
+.project:hover .project-arrow {
+    transform: translate(3px, -3px);
+    color: var(--black);
+}
+
+
+/* ── Footer ── */
+.footer {
+    position: relative;
+    z-index: 10;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .72rem;
+    color: var(--g2);
+}
+
+
+/* ── Lightbox (Full-Screen Gallery) ── */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 9, .94);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .4s var(--ease), visibility .4s;
+}
+
+.lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lb-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: rgba(255, 255, 255, .6);
+    transition: color .2s;
+    z-index: 10;
+}
+
+.lb-close:hover {
+    color: #fff
+}
+
+.lb-counter {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-family: var(--display);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: rgba(255, 255, 255, .4);
+}
+
+.lb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, .4);
+    padding: 1rem;
+    transition: color .2s;
+    z-index: 10;
+}
+
+.lb-arrow:hover {
+    color: #fff
+}
+
+.lb-prev {
+    left: 1rem
+}
+
+.lb-next {
+    right: 1rem
+}
+
+.lb-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 6rem;
+}
+
+.lb-stage img,
+.lb-stage video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+    opacity: 0;
+    transform: scale(.97);
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+}
+
+.lb-stage img.visible,
+.lb-stage video.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Caption below image */
+.lb-caption {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--display);
+    font-size: .75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, .45);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+
+/* ── Entry animation ── */
+.page {
+    opacity: 0;
+    transition: opacity .55s var(--ease)
+}
+
+.page.ready {
+    opacity: 1
+}
+
+
+/* ── Responsive ── */
+@media (max-width:860px) {
+    .page {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto
+    }
+
+    .deco {
+        display: none
+    }
+
+    .main {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        gap: 2rem;
+        padding: 2rem 1.5rem 3rem;
+        align-items: start;
+    }
+
+    .header {
+        max-width: 520px;
+        padding: 0 1.5rem
+    }
+
+    .statement {
+        font-size: 1.3rem
+    }
+
+    .lb-stage {
+        padding: 3rem 1.5rem
+    }
+}
+
+@media (max-width:420px) {
+    .logo-img {
+        width: 120px
+    }
+
+    .header {
+        padding: 0 1.25rem
+    }
+
+    .main {
+        padding: 1.5rem 1.25rem 2rem
+    }
+
+    .statement {
+        font-size: 1.15rem
+    }
+
+    .lb-stage {
+        padding: 2rem 1rem
+    }
+
+    .lb-arrow {
+        padding: .5rem
+    }
+
+    .lb-prev {
+        left: .25rem
+    }
+
+    .lb-next {
+        right: .25rem
+    }
+}
