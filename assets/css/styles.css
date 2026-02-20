@@ -395,6 +395,17 @@ li {
     padding-left: .4rem
 }
 
+/* Anchor wrapping the project card content */
+.project-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
 /* Hover preview (floats above row) */
 .project-preview {
     position: absolute;

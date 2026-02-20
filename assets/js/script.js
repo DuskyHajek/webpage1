@@ -78,9 +78,16 @@ function renderProjects() {
             }
         }
 
+        // Use a real <a> tag so search engines can crawl project links.
+        // Gallery projects use data-gallery to intercept clicks in JS.
+        const tag = p.isGallery ? 'a' : 'a';
+        const extraAttr = p.isGallery
+            ? `href="${p.url}" target="_blank" rel="noopener" data-gallery="${p.galleryKey}" onclick="this.dataset.gallery && openGallery(event,this.dataset.gallery,0)"`
+            : `href="${p.url}" target="_blank" rel="noopener"`;
+
         return `
-        <li class="project reveal${p.preview ? ' has-preview' : ''}${p.isGallery ? ' has-gallery' : ''}"
-            onclick="window.open('${p.url}','_blank')">
+        <li class="project reveal${p.preview ? ' has-preview' : ''}${p.isGallery ? ' has-gallery' : ''}">
+            <${tag} class="project-link" ${extraAttr} aria-label="${p.title} — ${p.desc}">
             ${preview}
             <div class="project-body">
                 <div class="project-name">${p.title}</div>
@@ -95,6 +102,7 @@ function renderProjects() {
                     </svg>
                 </span>
             </div>
+            </${tag}>
             ${galleryStrip}
         </li>`;
     }).join('');
