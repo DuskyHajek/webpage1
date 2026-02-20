@@ -379,6 +379,7 @@ li {
     border-bottom: 1px solid var(--g3);
     cursor: pointer;
     transition: padding-left .25s var(--ease);
+    flex-wrap: wrap;
 }
 
 .project:hover {
@@ -434,30 +435,50 @@ li {
     flex-shrink: 0;
 }
 
-/* "Visuals" pill button on @duskylab */
-.btn-gallery {
-    display: inline-flex;
+/* ── Gallery Thumbnail Strip ── */
+.gallery-strip {
+    display: flex;
     align-items: center;
-    gap: .25rem;
-    font-size: .62rem;
+    gap: .5rem;
+    width: 100%;
+    padding-top: .5rem;
+}
+
+.gallery-thumb {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform .25s var(--ease), filter .25s var(--ease), box-shadow .25s var(--ease);
+    border: 1px solid var(--g3);
+}
+
+.gallery-thumb:hover {
+    transform: scale(1.04);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+}
+
+.gallery-more {
+    font-size: .6rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .08em;
-    color: var(--black);
-    border: 1px solid var(--black);
+    letter-spacing: .06em;
+    color: var(--g1);
+    border: 1px solid var(--g3);
     border-radius: 100px;
     padding: .22rem .6rem;
-    transition: background .2s, color .2s;
     white-space: nowrap;
+    cursor: pointer;
+    transition: border-color .2s, color .2s, background .2s;
+    background: none;
 }
 
-.btn-gallery:hover {
-    background: var(--black);
-    color: var(--bg)
-}
-
-.btn-gallery svg {
-    flex-shrink: 0
+.gallery-more:hover {
+    border-color: var(--black);
+    color: var(--black);
+    background: var(--g4);
 }
 
 .project-tag {
@@ -657,6 +678,11 @@ li {
         padding: 1.25rem 0;
     }
 
+    /* Gallery strip: show max 2 thumbnails on tablet */
+    .gallery-thumb:nth-child(n+3) {
+        display: none;
+    }
+
     .lb-stage {
         padding: 3rem 1.5rem
     }
@@ -677,6 +703,12 @@ li {
 
     .statement {
         font-size: 1.15rem
+    }
+
+    /* Gallery strip: show max 2 thumbnails, smaller on mobile */
+    .gallery-thumb {
+        width: 100px;
+        height: 65px;
     }
 
     .lb-stage {

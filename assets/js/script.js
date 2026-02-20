@@ -51,20 +51,35 @@ function renderProjects() {
     const el = document.getElementById('project-list');
     if (!el) return;
 
+    const MAX_THUMBS = 3;
+
     el.innerHTML = PROJECTS.map(p => {
         const preview = p.preview
             ? `<div class="project-preview" style="background-image:url('${p.preview}')"></div>`
             : '';
 
-        const galleryBtn = p.isGallery
-            ? `<button class="btn-gallery" onclick="openGallery(event,'${p.galleryKey}')">
-                   Visuals
-                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-               </button>`
-            : '';
+        // Build gallery thumbnail strip for gallery projects
+        let galleryStrip = '';
+        if (p.isGallery && p.galleryKey) {
+            const items = visualsData[p.galleryKey] || [];
+            if (items.length > 0) {
+                const visible = items.slice(0, MAX_THUMBS);
+                const remaining = items.length - MAX_THUMBS;
+
+                const thumbs = visible.map((item, i) =>
+                    `<img class="gallery-thumb" src="${item.file}" alt="${item.name || ''}" loading="lazy" onclick="openGallery(event,'${p.galleryKey}',${i})">`
+                ).join('');
+
+                const moreBtn = remaining > 0
+                    ? `<button class="gallery-more" onclick="openGallery(event,'${p.galleryKey}',${MAX_THUMBS})">+${remaining} more</button>`
+                    : '';
+
+                galleryStrip = `<div class="gallery-strip">${thumbs}${moreBtn}</div>`;
+            }
+        }
 
         return `
-        <li class="project${p.preview ? ' has-preview' : ''}"
+        <li class="project${p.preview ? ' has-preview' : ''}${p.isGallery ? ' has-gallery' : ''}"
             onclick="window.open('${p.url}','_blank')">
             ${preview}
             <div class="project-body">
@@ -72,7 +87,6 @@ function renderProjects() {
                 <div class="project-desc">${p.desc}</div>
             </div>
             <div class="project-actions">
-                ${galleryBtn}
                 <span class="project-tag">${p.tag}</span>
                 <span class="project-arrow">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -81,6 +95,7 @@ function renderProjects() {
                     </svg>
                 </span>
             </div>
+            ${galleryStrip}
         </li>`;
     }).join('');
 }
@@ -143,15 +158,15 @@ function showSlide(idx) {
     requestAnimationFrame(() => requestAnimationFrame(() => media.classList.add('visible')));
 }
 
-function openGallery(e, key) {
+function openGallery(e, key, startIndex = 0) {
     e.stopPropagation();
     lbItems = visualsData[key] || [];
     if (!lbItems.length) return;
 
-    lbIndex = 0;
+    lbIndex = startIndex;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
-    showSlide(0);
+    showSlide(startIndex);
 }
 
 function closeGallery() {
@@ -186,8 +201,9 @@ document.addEventListener('keydown', (e) => {
 // ── Init ─────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', async () => {
-    renderProjects();
+    // Load visuals first so thumbnail paths are available during render
     await loadVisuals();
+    renderProjects();
 
     requestAnimationFrame(() => requestAnimationFrame(() => {
         document.querySelector('.page').classList.add('ready');
