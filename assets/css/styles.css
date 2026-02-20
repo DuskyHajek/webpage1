@@ -559,9 +559,15 @@ li {
     .main {
         grid-template-columns: 1fr;
         max-width: 520px;
-        gap: 2rem;
+        /* Increased vertical spacing for better separation of Identity vs Projects */
+        gap: 4rem;
         padding: 2rem 1.5rem 3rem;
         align-items: start;
+    }
+
+    /* More breathing room between Identity elements (Avatar, Name, Statement, Tags) */
+    .col--left {
+        gap: 2rem;
     }
 
     .header {
@@ -570,7 +576,14 @@ li {
     }
 
     .statement {
-        font-size: 1.3rem
+        font-size: 1.3rem;
+        /* Improved readability */
+        line-height: 1.45;
+    }
+
+    /* Bigger touch targets and visual separation for projects */
+    .project {
+        padding: 1.25rem 0;
     }
 
     .lb-stage {
