@@ -711,11 +711,6 @@ li {
         padding: 1.25rem 0;
     }
 
-    /* Gallery strip: show max 2 thumbnails on tablet */
-    .gallery-thumb:nth-child(n+3) {
-        display: none;
-    }
-
     .lb-stage {
         padding: 3rem 1.5rem
     }

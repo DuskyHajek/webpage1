@@ -51,7 +51,7 @@ function renderProjects() {
     const el = document.getElementById('project-list');
     if (!el) return;
 
-    const MAX_THUMBS = 3;
+    const MAX_THUMBS = window.innerWidth <= 860 ? 2 : 3;
 
     el.innerHTML = PROJECTS.map(p => {
         const preview = p.preview
