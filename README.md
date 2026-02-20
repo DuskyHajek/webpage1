@@ -20,8 +20,9 @@ duskyAI2/
 ├── assets/
 │   ├── css/styles.css          # All styles (CSS variables, layout, lightbox)
 │   ├── js/script.js            # Lightbox logic, API fetching, interactions
+│   ├── favicon/                # Site favicons & manifest
 │   └── images/
-│       ├── logo.png            # Main logo & favicon
+│       ├── logo.png            # Main logo
 │       ├── photo.jpg           # Profile avatar
 │       ├── projects/           # Hover preview images
 │       └── visuals/            # Gallery assets
@@ -39,6 +40,7 @@ Edit `PROJECTS` array in `assets/js/script.js`.
 1. Drop image/video files into `assets/images/visuals/duskylab/`.
 2. **For Vercel**: Update `assets/images/visuals/manifest.json` with the new filenames.
 3. **For PHP Host**: No action needed (auto-scanned).
+4. **Build Script**: Run `npm run build` to regenerate `manifest.json` manually.
 
 ## License
 © 2026 duskyAI

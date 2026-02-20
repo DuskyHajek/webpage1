@@ -1,29 +1,29 @@
 {
-    "duskylab": [
-        {
-            "file": "assets/images/visuals/duskylab/A_highend_minimalist_2k_202602051444.jpeg",
-            "type": "image",
-            "name": "A_highend_minimalist_2k_202602051444"
-        },
-        {
-            "file": "assets/images/visuals/duskylab/A_luxurious_dynamic_2k_202602190916 (1).jpeg",
-            "type": "image",
-            "name": "A_luxurious_dynamic_2k_202602190916"
-        },
-        {
-            "file": "assets/images/visuals/duskylab/A_dynamic_wideangle_2k_202602151954.jpeg",
-            "type": "image",
-            "name": "A_dynamic_wideangle_2k_202602151954"
-        },
-        {
-            "file": "assets/images/visuals/duskylab/An_artistic_studio_2k_202602181532 (1).jpeg",
-            "type": "image",
-            "name": "An_artistic_studio_2k_202602181532"
-        },
-        {
-            "file": "assets/images/visuals/duskylab/An_epic_outdoor_2k_202602100956.jpeg",
-            "type": "image",
-            "name": "An_epic_outdoor_2k_202602100956"
-        }
-    ]
+  "duskylab": [
+    {
+      "file": "assets/images/visuals/duskylab/An_artistic_studio_2k_202602181532 (1).jpeg",
+      "type": "image",
+      "name": "An_artistic_studio_2k_202602181532 (1)"
+    },
+    {
+      "file": "assets/images/visuals/duskylab/An_epic_outdoor_2k_202602100956.jpeg",
+      "type": "image",
+      "name": "An_epic_outdoor_2k_202602100956"
+    },
+    {
+      "file": "assets/images/visuals/duskylab/A_dynamic_wideangle_2k_202602151954.jpeg",
+      "type": "image",
+      "name": "A_dynamic_wideangle_2k_202602151954"
+    },
+    {
+      "file": "assets/images/visuals/duskylab/A_highend_minimalist_2k_202602051444.jpeg",
+      "type": "image",
+      "name": "A_highend_minimalist_2k_202602051444"
+    },
+    {
+      "file": "assets/images/visuals/duskylab/A_luxurious_dynamic_2k_202602190916 (1).jpeg",
+      "type": "image",
+      "name": "A_luxurious_dynamic_2k_202602190916 (1)"
+    }
+  ]
 }

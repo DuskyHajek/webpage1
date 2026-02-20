@@ -33,7 +33,9 @@ body {
     font-family: var(--sans);
     background: var(--bg);
     color: var(--black);
-    -webkit-font-smoothing: antialiased
+    -webkit-font-smoothing: antialiased;
+    /* Premium Noise Texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
 img {
@@ -83,17 +85,22 @@ li {
 }
 
 .deco--vline {
-    display: none
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--g3) 15%, var(--g3) 85%, transparent);
+    opacity: 0.4;
 }
-
-/* removed — was interfering with project list */
 
 .deco--hline-top,
 .deco--hline-bot {
-    left: 8%;
-    right: 8%;
+    left: 6%;
+    right: 6%;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--g3) 20%, var(--g3) 80%, transparent);
+    background: linear-gradient(to right, transparent, var(--g3) 15%, var(--g3) 85%, transparent);
+    opacity: 0.6;
 }
 
 .deco--hline-top {
@@ -141,7 +148,7 @@ li {
     position: relative;
     z-index: 10;
     display: grid;
-    grid-template-columns: 5fr 6fr;
+    grid-template-columns: 1fr 1fr;
     /* Right side slightly wider for project rows */
     gap: 5rem;
     align-items: center;
@@ -166,10 +173,11 @@ li {
 }
 
 .avatar {
-    width: 56px;
-    height: 56px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
-    border: 1.5px solid var(--g3);
+    border: 2px solid var(--g3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     flex-shrink: 0;
 }
