@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "description": "Minimal, high-impact personal portfolio for Dusan Hajek.",
     "scripts": {
-        "build": "node scripts/generate-manifest.js",
+        "build": "node scripts/build-site.js",
         "dev": "npx -y serve ."
     },
     "author": "Dusan Hajek",
