@@ -79,7 +79,7 @@ function renderProjects() {
         }
 
         return `
-        <li class="project${p.preview ? ' has-preview' : ''}${p.isGallery ? ' has-gallery' : ''}"
+        <li class="project reveal${p.preview ? ' has-preview' : ''}${p.isGallery ? ' has-gallery' : ''}"
             onclick="window.open('${p.url}','_blank')">
             ${preview}
             <div class="project-body">
@@ -198,6 +198,36 @@ document.addEventListener('keydown', (e) => {
 });
 
 
+// ── UI Enhancements ──────────────────────────────────────
+
+function initMagneticCTA() {
+    const cta = document.querySelector('.cta-btn');
+    // Only apply hover effects on non-touch devices
+    if (!cta || !window.matchMedia("(hover: hover)").matches) return;
+
+    cta.addEventListener('mousemove', (e) => {
+        const rect = cta.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        // Subtle magnetic pull
+        cta.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    });
+
+    cta.addEventListener('mouseleave', () => {
+        cta.style.transform = '';
+    });
+}
+
+function initStaggeredReveal() {
+    const elements = document.querySelectorAll('.reveal');
+    elements.forEach((el, i) => {
+        setTimeout(() => {
+            el.classList.add('revealed');
+        }, 50 + (i * 60)); // 50ms initial delay, 60ms stagger per element
+    });
+}
+
 // ── Init ─────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -205,7 +235,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadVisuals();
     renderProjects();
 
+    initMagneticCTA();
+
     requestAnimationFrame(() => requestAnimationFrame(() => {
         document.querySelector('.page').classList.add('ready');
+        initStaggeredReveal();
     }));
 });
