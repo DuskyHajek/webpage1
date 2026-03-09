@@ -15,6 +15,15 @@
 
 const PROJECTS = [
     {
+        title: "aibookdb.com",
+        desc: "Curated directory of essential AI literature with editorial summaries",
+        url: "https://www.aibookdb.com/",
+        tag: "Web",
+        preview: "assets/images/projects/aibookdb.png",
+        isGallery: true,
+        galleryKey: "aibookdb"
+    },
+    {
         title: "AIList.sk",
         desc: "AI companies & events directory in Slovakia",
         url: "https://www.ailist.sk/",

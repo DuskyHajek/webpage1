@@ -30,5 +30,17 @@
       "type": "image",
       "name": "Type_a_lifestyle_2k_202602041529"
     }
+  ],
+  "aibookdb": [
+    {
+      "file": "assets/images/projects/aibookdb.png",
+      "type": "image",
+      "name": "aibookdb"
+    },
+    {
+      "file": "assets/images/projects/aibookdb-shelf.png",
+      "type": "image",
+      "name": "aibookdb-shelf"
+    }
   ]
 }
