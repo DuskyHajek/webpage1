@@ -1,0 +1,25 @@
+# duskyAI
+
+> Personal site of Dusan Hajek — AI Explorer & Builder. Building with AI so you don't have to figure it out alone.
+
+Portfolio covering AI solutions, web development, generative media, and automation. Contact: hello@duskyai.com
+
+## Pages
+
+- [Home](https://www.duskyai.com/): Bio, focus areas, projects, and contact
+
+## Projects
+
+- [aibookdb.com](https://www.aibookdb.com/): Curated directory of essential AI literature with editorial summaries
+- makeaivisible.com: Making AI visible — launching soon
+- [@duskylab](https://www.instagram.com/duskylab/): AI visual production studio
+- [@pokerartai](https://www.instagram.com/pokerart.ai/): AI-generated poker art and videos
+
+## Optional
+
+- [LinkedIn](https://www.linkedin.com/in/dusan-hajek-16b630171/)
+- [GitHub](https://github.com/DuskyHajek)
+- [X / Twitter](https://twitter.com/duskyAI)
+- [Pivovar General](https://www.generalshop.sk/): Collaboration
+- [Pokerlist](https://pokerlist.com): Collaboration
+- [Urbanista](https://urbanista.sk): Collaboration

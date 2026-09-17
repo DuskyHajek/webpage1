@@ -344,6 +344,10 @@ li {
     transition: opacity .3s var(--ease), filter .3s var(--ease);
 }
 
+.collab-logo--wide {
+    width: 120px;
+}
+
 .collab-logo:hover {
     opacity: 1;
     filter: grayscale(0);
@@ -393,6 +397,15 @@ li {
 
 .project:hover {
     padding-left: .4rem
+}
+
+.project.is-soon {
+    cursor: default;
+    opacity: .72;
+}
+
+.project.is-soon:hover {
+    padding-left: 0;
 }
 
 /* Anchor wrapping the project card content */
@@ -510,6 +523,11 @@ li {
     border: 1px solid var(--g3);
     border-radius: 100px;
     padding: .18rem .5rem;
+}
+
+.project-tag--soon {
+    color: var(--black);
+    border-color: var(--g2);
 }
 
 .project-arrow {

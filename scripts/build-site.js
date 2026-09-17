@@ -13,6 +13,7 @@ const include = [
     'assets',
     'robots.txt',
     'sitemap.xml',
+    'llms.txt',
     'README.md'
 ];
 

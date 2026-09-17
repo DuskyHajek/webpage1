@@ -24,11 +24,11 @@ const PROJECTS = [
         galleryKey: "aibookdb"
     },
     {
-        title: "AIList.sk",
-        desc: "AI companies & events directory in Slovakia",
-        url: "https://www.ailist.sk/",
-        tag: "Web",
-        preview: "assets/images/projects/AIList-sk.png"
+        title: "makeaivisible.com",
+        desc: "Making AI visible — launching soon",
+        url: "https://www.makeaivisible.com/",
+        tag: "Soon",
+        comingSoon: true
     },
     {
         title: "@duskylab",
@@ -37,12 +37,6 @@ const PROJECTS = [
         tag: "Instagram",
         isGallery: true,
         galleryKey: "duskylab"
-    },
-    {
-        title: "PokerCalendar.eu",
-        desc: "Poker tournaments & events across Europe",
-        url: "https://www.pokercalendar.eu/",
-        tag: "Web"
     },
     {
         title: "@pokerartai",
@@ -89,13 +83,24 @@ function renderProjects() {
 
         // Use a real <a> tag so search engines can crawl project links.
         // Gallery projects use data-gallery to intercept clicks in JS.
-        const tag = p.isGallery ? 'a' : 'a';
-        const extraAttr = p.isGallery
-            ? `href="${p.url}" target="_blank" rel="noopener" data-gallery="${p.galleryKey}" onclick="this.dataset.gallery && openGallery(event,this.dataset.gallery,0)"`
-            : `href="${p.url}" target="_blank" rel="noopener"`;
+        // Coming-soon projects stay non-linking until the site is live.
+        const tag = p.comingSoon ? 'div' : 'a';
+        const extraAttr = p.comingSoon
+            ? `role="text"`
+            : p.isGallery
+                ? `href="${p.url}" target="_blank" rel="noopener" data-gallery="${p.galleryKey}" onclick="this.dataset.gallery && openGallery(event,this.dataset.gallery,0)"`
+                : `href="${p.url}" target="_blank" rel="noopener"`;
+
+        const arrow = p.comingSoon ? '' : `
+                <span class="project-arrow">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="7" y1="17" x2="17" y2="7"/>
+                        <polyline points="7 7 17 7 17 17"/>
+                    </svg>
+                </span>`;
 
         return `
-        <li class="project reveal${p.preview ? ' has-preview' : ''}${p.isGallery ? ' has-gallery' : ''}">
+        <li class="project reveal${p.preview ? ' has-preview' : ''}${p.isGallery ? ' has-gallery' : ''}${p.comingSoon ? ' is-soon' : ''}">
             <${tag} class="project-link" ${extraAttr} aria-label="${p.title} — ${p.desc}">
             ${preview}
             <div class="project-body">
@@ -103,13 +108,8 @@ function renderProjects() {
                 <div class="project-desc">${p.desc}</div>
             </div>
             <div class="project-actions">
-                <span class="project-tag">${p.tag}</span>
-                <span class="project-arrow">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="7" y1="17" x2="17" y2="7"/>
-                        <polyline points="7 7 17 7 17 17"/>
-                    </svg>
-                </span>
+                <span class="project-tag${p.comingSoon ? ' project-tag--soon' : ''}">${p.tag}</span>
+                ${arrow}
             </div>
             </${tag}>
             ${galleryStrip}
