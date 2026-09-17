@@ -11,6 +11,7 @@ Portfolio covering AI solutions, web development, generative media, and automati
 ## Projects
 
 - [aibookdb.com](https://www.aibookdb.com/): Curated directory of essential AI literature with editorial summaries
+- [app.urbanista.sk](https://app.urbanista.sk/): CRM for estate agents — deal workflows and document automation
 - makeaivisible.com: Making AI visible — launching soon
 - [@duskylab](https://www.instagram.com/duskylab/): AI visual production studio
 - [@pokerartai](https://www.instagram.com/pokerart.ai/): AI-generated poker art and videos
