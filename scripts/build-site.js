@@ -10,6 +10,7 @@ const rootDir = path.join(__dirname, '../');
 // Files/Folders to copy to dist
 const include = [
     'index.html',
+    'about.html',
     'assets',
     'robots.txt',
     'sitemap.xml',

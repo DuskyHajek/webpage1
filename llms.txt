@@ -7,6 +7,7 @@ Portfolio covering AI solutions, web development, generative media, and automati
 ## Pages
 
 - [Home](https://www.duskyai.com/): Bio, focus areas, projects, and contact
+- [About](https://www.duskyai.com/about.html): Bio and contact for Dusan Hajek
 
 ## Projects
 
