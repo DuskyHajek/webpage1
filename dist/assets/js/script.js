@@ -32,10 +32,10 @@ const PROJECTS = [
     },
     {
         title: "makeaivisible.com",
-        desc: "Making AI visible — launching soon",
+        desc: "AI recommendation visibility — articles, glossary, resources, and a fetch check for sites",
         url: "https://www.makeaivisible.com/",
-        tag: "Soon",
-        comingSoon: true
+        tag: "Web",
+        preview: "assets/images/projects/makeaivisible.png"
     },
     {
         title: "@duskylab",
