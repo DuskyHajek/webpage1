@@ -24,9 +24,9 @@ const PROJECTS = [
         galleryKey: "aibookdb"
     },
     {
-        title: "app.urbanista.sk",
+        title: "crm.urbanista.sk",
         desc: "CRM for estate agents — deal workflows and document automation",
-        url: "https://app.urbanista.sk/",
+        url: "https://crm.urbanista.sk/",
         tag: "Web",
         preview: "assets/images/projects/urbanista.png"
     },
