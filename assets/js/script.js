@@ -15,6 +15,13 @@
 
 const PROJECTS = [
     {
+        title: "crm.urbanista.sk",
+        desc: "CRM for estate agents — deal workflows and document automation",
+        url: "https://crm.urbanista.sk/",
+        tag: "Web",
+        preview: "assets/images/projects/urbanista.png"
+    },
+    {
         title: "aibookdb.com",
         desc: "Curated directory of essential AI literature with editorial summaries",
         url: "https://www.aibookdb.com/",
@@ -22,13 +29,6 @@ const PROJECTS = [
         preview: "assets/images/projects/aibookdb.png",
         isGallery: true,
         galleryKey: "aibookdb"
-    },
-    {
-        title: "crm.urbanista.sk",
-        desc: "CRM for estate agents — deal workflows and document automation",
-        url: "https://crm.urbanista.sk/",
-        tag: "Web",
-        preview: "assets/images/projects/urbanista.png"
     },
     {
         title: "makeaivisible.com",
