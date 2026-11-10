@@ -25,8 +25,7 @@ const PROJECTS = [
         title: "AIB-C01 practice exam",
         desc: "Unofficial practice for the AWS Certified AI Business Strategist exam",
         url: "https://www.duskyai.com/aib-c01/",
-        tag: "Web",
-        sameTab: true
+        tag: "Web"
     },
     {
         title: "aibookdb.com",
