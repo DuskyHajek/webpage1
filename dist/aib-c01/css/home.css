@@ -79,8 +79,8 @@
   .miss-list { max-height: calc(100dvh - 230px); overflow: auto; }
 }
 .score-top { display: flex; align-items: center; gap: 18px; margin: 6px 0 4px; }
-.score-top h1 { margin: 0; font: 600 42px/1 var(--display); letter-spacing: -0.04em; }
-.score-top h1 .big-den { font-size: 22px; color: var(--muted); font-weight: 600; }
+.score-top .score-num { margin: 0; font: 600 42px/1 var(--display); letter-spacing: -0.04em; }
+.score-top .score-num .big-den { font-size: 22px; color: var(--muted); font-weight: 600; }
 .score-denom { margin: 6px 0 0; }
 .bars { display: grid; gap: 10px; margin: 18px 0; }
 .rbar { display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; font-size: 13.5px; }
@@ -103,5 +103,4 @@
 @media (max-width: 700px) {
   .home-head { flex-wrap: wrap; align-items: center; }
   .tiles, .pace-grid { grid-template-columns: 1fr; }
-  .site-back { display: none; }
 }

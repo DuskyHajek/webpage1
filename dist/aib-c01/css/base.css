@@ -94,7 +94,7 @@ footer.note { color: var(--muted); font-size: 12px; padding: 10px 0 12px; }
 }
 .btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow-lift); --bd: var(--ink); }
 .btn:active:not(:disabled) { transform: translateY(0) scale(.97); box-shadow: none; transition-duration: .06s; }
-.btn:focus-visible, .opt:focus-visible, .dot:focus-visible, .chip:focus-visible, .pace:focus-visible, .miss-row:focus-visible {
+.btn:focus-visible, .opt:focus-visible, .dot:focus-visible, .chip:focus-visible, .pace:focus-visible, .miss-row:focus-visible, a:focus-visible, summary:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }

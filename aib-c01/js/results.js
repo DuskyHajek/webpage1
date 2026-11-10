@@ -15,7 +15,7 @@
       + '<span class="ask">' + ui.esc(core.askOf(core.BY_ID[row.id])) + "</span>" + ui.icon("arrowR", "ic-end") + "</button>").join("");
     return '<div class="results">'
       + '<section class="panel score-card"><p class="kicker">' + ui.esc(o.kicker) + "</p>"
-      + '<div class="score-top">' + ui.ring(o.total ? o.correct / o.total : 0, pass ? "pass line met" : "below line") + "<div><h1>" + o.correct + "<span class=\"big-den\"> / " + o.total + "</span></h1>"
+      + '<div class="score-top">' + ui.ring(o.total ? o.correct / o.total : 0, pass ? "pass line met" : "below line") + "<div><p class=\"score-num\">" + o.correct + "<span class=\"big-den\"> / " + o.total + "</span></p>"
       + '<p class="sub score-denom">' + Math.round((o.correct / o.total) * 100) + "% correct</p></div></div>"
       + '<p class="sub">' + ui.esc(o.scoreline) + " Unofficial heuristic: " + passLine + "+ correct (about 700 scaled). AWS uses its own scoring.</p>"
       + '<div class="bars">' + bars + "</div>"

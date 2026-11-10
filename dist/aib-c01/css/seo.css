@@ -20,6 +20,18 @@
   font-size: 14px;
   line-height: 1.45;
 }
+.seo-meta {
+  max-width: 62ch;
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.seo-checked {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 12px;
+}
 .seo-about {
   margin: 14px 0 0;
   border-top: 1px solid var(--line);
