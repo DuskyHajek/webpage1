@@ -145,7 +145,6 @@ kbd {
 
 .track { position: relative; height: 6px; background: var(--track); border-radius: 99px; overflow: hidden; }
 .track i { display: block; height: 100%; background: var(--accent); border-radius: inherit; transform-origin: left; animation: grow .9s var(--ease) both; }
-.track.pass-ref::after { content: ""; position: absolute; top: 0; bottom: 0; left: 82%; width: 2px; background: var(--ink); opacity: .35; }
 
 .ring { position: relative; width: 116px; height: 116px; flex: none; }
 .ring svg { width: 100%; height: 100%; }
@@ -153,7 +152,7 @@ kbd {
 .ring-bg { stroke: var(--track); }
 .ring-val { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: var(--off); animation: ring-in 1.1s var(--ease) both; }
 .ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); font-size: 11.5px; }
-.ring-text strong { font: 600 26px/1 var(--display); color: var(--ink); letter-spacing: -0.03em; margin-bottom: 2px; }
+.ring-text strong { font: 600 26px/1 var(--display); color: var(--ink); letter-spacing: -0.03em; }
 
 .pill { display: inline-flex; align-items: center; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--muted); font-size: 12.5px; font-weight: 600; white-space: nowrap; }
 .pill.strong { background: var(--ink); border-color: var(--ink); color: #fff; font-variant-numeric: tabular-nums; }

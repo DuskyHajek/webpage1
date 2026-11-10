@@ -49,7 +49,8 @@
     return '<div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120">'
       + '<circle cx="60" cy="60" r="52" class="ring-bg"/>'
       + (empty ? "" : '<circle cx="60" cy="60" r="52" class="ring-val" style="--off:' + off + '" transform="rotate(-90 60 60)"/>')
-      + '</svg><div class="ring-text"><strong>' + (empty ? "—" : Math.round(pct * 100) + "%") + "</strong><span>" + esc(label) + "</span></div></div>";
+      + '</svg><div class="ring-text"><strong>' + (empty ? "—" : Math.round(pct * 100) + "%") + "</strong>"
+      + (label ? "<span>" + esc(label) + "</span>" : "") + "</div></div>";
   }
 
   function track(pct, cls) {
