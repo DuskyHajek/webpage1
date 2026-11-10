@@ -1,0 +1,174 @@
+/* Slim page title + crawlable exam copy in a closed disclosure below the app. */
+.seo-landing {
+  padding: 12px 0 10px;
+  margin-bottom: 2px;
+}
+.seo-landing h1 {
+  margin: 0;
+  font-size: clamp(24px, 2.8vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+.seo-landing h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+.seo-tagline {
+  max-width: 58ch;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.seo-about {
+  margin: 14px 0 0;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.seo-about > summary {
+  cursor: pointer;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--muted);
+  list-style: none;
+}
+.seo-about > summary::-webkit-details-marker { display: none; }
+.seo-about > summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform .2s var(--ease);
+}
+.seo-about[open] > summary::before { transform: rotate(90deg); }
+.seo-about[open] > summary { color: var(--ink); }
+.seo-about-body {
+  padding: 16px 0 8px;
+}
+.seo-about-body h2 {
+  margin: 20px 0 10px;
+  font-size: 16px;
+}
+.seo-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.seo-facts li {
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.seo-domains {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.seo-domains li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 14px;
+  align-items: baseline;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  font-size: 14px;
+}
+.seo-domains .dnum {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--track);
+  font: 600 14px var(--display);
+}
+.seo-domains strong {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.seo-domains span {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 13px;
+}
+.seo-details {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card-2);
+}
+.seo-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-family: var(--display);
+  font-size: 14px;
+  color: var(--ink);
+}
+.seo-details p {
+  margin: 12px 0 0;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.seo-faq {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.seo-faq dt {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+.seo-faq dd {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.seo-faq dd + dt {
+  margin-top: 4px;
+}
+.seo-sources {
+  display: grid;
+  gap: 10px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.seo-sources li {
+  display: grid;
+  gap: 2px;
+}
+.seo-sources a {
+  font-weight: 600;
+  font-size: 14px;
+}
+.seo-sources span {
+  color: var(--muted);
+  font-size: 13px;
+}
+@media (max-width: 640px) {
+  .seo-domains li {
+    grid-template-columns: 1fr;
+  }
+  .seo-domains .dnum {
+    display: none;
+  }
+  .seo-domains span {
+    grid-column: 1;
+  }
+}

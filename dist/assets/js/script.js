@@ -22,6 +22,13 @@ const PROJECTS = [
         preview: "assets/images/projects/urbanista.png"
     },
     {
+        title: "AIB-C01 practice exam",
+        desc: "Unofficial practice for the AWS Certified AI Business Strategist exam",
+        url: "https://www.duskyai.com/aib-c01/",
+        tag: "Web",
+        sameTab: true
+    },
+    {
         title: "aibookdb.com",
         desc: "Curated directory of essential AI literature with editorial summaries",
         url: "https://www.aibookdb.com/",
@@ -96,7 +103,7 @@ function renderProjects() {
             ? `role="text"`
             : p.isGallery
                 ? `href="${p.url}" target="_blank" rel="noopener" data-gallery="${p.galleryKey}" onclick="this.dataset.gallery && openGallery(event,this.dataset.gallery,0)"`
-                : `href="${p.url}" target="_blank" rel="noopener"`;
+                : `href="${p.url}"${p.sameTab ? "" : ` target="_blank" rel="noopener"`}`;
 
         const arrow = p.comingSoon ? '' : `
                 <span class="project-arrow">

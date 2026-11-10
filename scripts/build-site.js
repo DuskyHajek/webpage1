@@ -15,7 +15,8 @@ const include = [
     'robots.txt',
     'sitemap.xml',
     'llms.txt',
-    'README.md'
+    'README.md',
+    'aib-c01'
 ];
 
 function build() {
@@ -34,7 +35,16 @@ function build() {
 
         if (fs.existsSync(src)) {
             console.log(`Copying ${item}...`);
-            fs.cpSync(src, dest, { recursive: true });
+            const options = { recursive: true };
+            if (item === 'aib-c01') {
+                options.filter = (source) => {
+                    const rel = path.relative(src, source);
+                    if (!rel || rel === '.') return true;
+                    const top = rel.split(path.sep)[0];
+                    return top !== 'tests' && top !== '1791415052344.pdf';
+                };
+            }
+            fs.cpSync(src, dest, options);
         } else {
             console.warn(`Warning: ${item} not found.`);
         }
