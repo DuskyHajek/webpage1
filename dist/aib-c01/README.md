@@ -28,7 +28,7 @@ Business people who evaluate, champion, or scale AI: product and program manager
 | Exam facts on the landing page | Public AWS pages, each with a short description on the page: [exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html) (domains, timing, pass mark), [schedule the exam](https://aws.amazon.com/certification/certified-ai-business-strategist/) (credential overview), and the [Skill Builder exam prep plan, English](https://skillbuilder.aws/learning-plan/B8J6KKJ45C/exam-prep-plan--aws-certified-ai-business-strategist-aibc01--english/) (official training, not this practice set). |
 | App, scoring, landing copy | This repo (duskyAI). Progress stays in the browser (`localStorage`). |
 
-Do not publish the question bank as separate public pages. One short example stem on the landing page is enough. The interactive set stays in `questions.js`.
+Do not publish the question bank as separate public pages. The interactive set stays in `questions.js`.
 
 `tests/` is for local checks. `1791415052344.pdf` is a reference file and is not served by the page.
 
@@ -49,10 +49,9 @@ One URL: `https://www.duskyai.com/aib-c01/`. The title and H1 carry the long nam
 - AIB-C01 practice test
 - AWS Certified AI Business Strategist
 
-**Supporting terms** (body, FAQ, example block — once each, in a real sentence):
+**Supporting terms** (body, FAQ — once each, in a real sentence):
 
 - AIB-C01 exam
-- AIB-C01 exam example
 - AIB-C01 exam test
 
 **Search variants** (one sentence only; do not put them in the title as if they were the official name):
@@ -64,7 +63,7 @@ There is no separate Amazon credential. The name is AWS Certified AI Business St
 
 **Do not target** as if this site were the source of truth: “official AIB-C01 practice test”, “AWS exam dump”, “real exam questions”. The page should keep saying the set is unofficial.
 
-Visible copy that should stay in the HTML (not only in JavaScript): what the exam is, timing and the 700 pass line, the four domains, one example scenario, and the FAQ. The FAQ text and the `FAQPage` JSON-LD in `index.html` must match.
+Visible copy that should stay in the HTML (not only in JavaScript): what the exam is, timing and the 700 pass line, the four domains, and the FAQ. The FAQ text and the `FAQPage` JSON-LD in `index.html` must match.
 
 ## GEO
 
