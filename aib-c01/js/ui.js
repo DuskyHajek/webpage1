@@ -38,9 +38,10 @@
       + (o.disabled ? " disabled" : "")
       + (o.pressed !== undefined ? ' aria-pressed="' + o.pressed + '"' : "")
       + (o.title ? ' title="' + esc(o.title) + '" aria-label="' + esc(o.title) + '"' : "");
+    const labelHtml = o.htmlLabel || (label ? '<span class="btn-label">' + esc(label) + "</span>" : "");
     return '<button type="button" class="btn ' + (o.kind || "secondary") + (o.cls ? " " + o.cls : "") + '" data-act="' + act + '"' + data + attrs + ">"
       + (o.icon ? icon(o.icon) : "")
-      + (label ? '<span class="btn-label">' + esc(label) + "</span>" : "")
+      + labelHtml
       + (o.iconEnd ? icon(o.iconEnd, "ic-end") : "")
       + (o.key ? "<kbd>" + esc(o.key) + "</kbd>" : "")
       + "</button>";

@@ -3,8 +3,10 @@
 .home-title { font-size: clamp(28px, 3.4vw, 40px); }
 .home-title em { font-style: normal; color: var(--accent); }
 #app { scroll-margin-top: 12px; }
-.home-head { display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding: 4px 0 10px; }
-.head-tools { display: flex; align-items: center; gap: 8px; }
+.home-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 4px 0 14px; flex-wrap: wrap; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; flex: 1; min-width: 0; align-items: center; }
+.hero-count { margin-left: 6px; font-variant-numeric: tabular-nums; font-weight: 600; opacity: 0.9; }
+.head-tools { display: flex; align-items: center; gap: 8px; flex: none; }
 
 .home-grid { display: grid; gap: 16px; }
 
@@ -31,8 +33,8 @@
 .tile.dark { background: var(--ink); border-color: var(--ink); color: var(--paper); background-image: radial-gradient(300px 160px at 100% 0%, rgba(14, 92, 74, 0.55), transparent 70%); }
 .tile.dark .eyebrow { color: #c9b07a; }
 .tile.dark p:not(.eyebrow) { color: #bdb4a7; }
-.tile.dark .btn.primary { --bg: var(--paper); --fg: var(--ink); --bd: var(--paper); }
-.tile.dark .btn.primary:hover { --bg: #fff; --bd: #fff; }
+.tile.dark .btn { --bg: transparent; --fg: var(--paper); --bd: var(--paper); }
+.tile.dark .btn:hover:not(:disabled) { --bg: rgba(255, 255, 255, 0.08); --fg: #fff; --bd: #fff; box-shadow: none; }
 
 @media (min-width: 960px) {
   .home-grid { grid-template-columns: minmax(320px, 420px) minmax(0, 1fr); align-items: start; }
@@ -94,13 +96,18 @@
 
 @media (max-width: 959px) {
   .home-grid { grid-template-columns: 1fr; }
-  .tiles { grid-template-columns: 1fr; }
   .tile { min-height: 0; }
   .drow { grid-template-columns: 1fr; gap: 10px; padding: 12px 0; }
   .dset { justify-content: space-between; }
   .dset > span { text-align: left; }
 }
+@media (min-width: 701px) and (max-width: 959px) {
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 @media (max-width: 700px) {
-  .home-head { flex-wrap: wrap; align-items: center; }
+  .home-head { align-items: stretch; }
+  .hero-cta { flex: 1 1 100%; }
+  .hero-cta .btn { flex: 1; min-width: 0; }
+  .head-tools { margin-left: auto; }
   .tiles, .pace-grid { grid-template-columns: 1fr; }
 }

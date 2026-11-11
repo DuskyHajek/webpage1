@@ -2,29 +2,44 @@
 (function (root) {
   const A = (root.AIB = root.AIB || {});
 
-  function primaryLearnId(state) {
-    const { core } = A;
-    if (core.hasActiveExam(state)) return "";
-    if (core.phaseOf(state.sets.all) === "active") return "all";
-    const domain = core.DOMAIN_IDS.find((d) => core.phaseOf(state.sets[String(d)]) === "active");
-    if (domain) return String(domain);
-    if (core.phaseOf(state.sets.all) === "new") return "all";
-    return "";
-  }
-
-  function setActions(setId, phase, primary) {
+  function setActions(setId, phase) {
     const { btn } = A.ui;
     const data = { set: setId };
-    const kind = primary ? "primary" : undefined;
     if (phase === "active") {
-      return btn("Continue", "start", { data, kind, iconEnd: "arrowR", cls: "sm" })
+      return btn("Continue", "start", { data, iconEnd: "arrowR", cls: "sm" })
         + btn("", "restart", { data, kind: "quiet", cls: "sm icon-only", icon: "redo", title: "Start over" });
     }
     if (phase === "done") {
       return btn("Results", "results", { data, cls: "sm" })
         + btn("", "restart", { data, kind: "quiet", cls: "sm icon-only", icon: "redo", title: "Try again" });
     }
-    return btn("Start", "start", { data, kind, iconEnd: "arrowR", cls: "sm" });
+    return btn("Start", "start", { data, iconEnd: "arrowR", cls: "sm" });
+  }
+
+  function heroCtaHtml(state) {
+    const { core, ui } = A;
+    const all = state.sets.all;
+    const allPhase = core.phaseOf(all);
+    const activeExam = core.hasActiveExam(state);
+    let primary;
+    if (allPhase === "new") {
+      primary = ui.btn("Start full set", "start", { kind: "primary", cls: "lg", data: { set: "all" }, iconEnd: "arrowR" });
+    } else if (allPhase === "active") {
+      const sc = core.scoreOf(all);
+      primary = ui.btn("", "start", {
+        kind: "primary",
+        cls: "lg",
+        data: { set: "all" },
+        iconEnd: "arrowR",
+        htmlLabel: '<span class="btn-label">Continue full set <span class="hero-count">' + sc.answered + " / " + sc.total + "</span></span>",
+      });
+    } else {
+      primary = ui.btn("Review results", "results", { kind: "primary", cls: "lg", data: { set: "all" }, iconEnd: "arrowR" });
+    }
+    const secondary = activeExam
+      ? ui.btn("Continue mock", "exam-continue", { cls: "lg", icon: "clock" })
+      : ui.btn("Timed mock", "exam-intro", { cls: "lg", icon: "clock" });
+    return '<div class="hero-cta">' + primary + secondary + "</div>";
   }
 
   function scoreMeter(correct, total) {
@@ -57,20 +72,19 @@
 
   function domainsHtml(state) {
     const { core, ui } = A;
-    const primaryId = primaryLearnId(state);
     const rows = core.DOMAIN_IDS.map((d) => {
       const id = String(d);
       const set = state.sets[id];
       const phase = core.phaseOf(set);
       const count = core.idsFor(state, id).length;
-      const weight = core.DOMAIN_WEIGHT[d] != null ? '<span class="wt">' + core.DOMAIN_WEIGHT[d] + "% of exam</span>" : "";
+      const weight = core.DOMAIN_WEIGHT[d] != null ? ' <span class="wt">' + core.DOMAIN_WEIGHT[d] + "% of exam</span>" : "";
       return '<div class="drow">'
         + '<div class="dname"><span class="dnum">' + d + "</span><div><strong>"
-        + ui.esc(core.DOMAIN_SHORT[d] || "Domain " + d) + weight
-        + "</strong><small>" + ui.esc(core.DOMAINS[d]) + "</small></div></div>"
+        + ui.esc(core.DOMAIN_SHORT[d] || "Domain " + d)
+        + "</strong><small>" + ui.esc(core.DOMAINS[d]) + weight + "</small></div></div>"
         + '<div class="dset"><span>' + ui.esc(setNote(set, phase, count + " questions", true)) + "</span>"
         + domainMeter(state, id)
-        + '<div class="actions">' + setActions(id, phase, primaryId === id) + "</div></div>"
+        + '<div class="actions">' + setActions(id, phase) + "</div></div>"
         + "</div>";
     }).join("");
     return '<section class="panel domains"><div class="panel-head"><h2>Domains</h2></div>' + rows + "</section>";
@@ -80,24 +94,23 @@
     const { core, ui } = A;
     const all = state.sets.all;
     const allPhase = core.phaseOf(all);
-    const primaryId = primaryLearnId(state);
     const fullSc = allPhase === "new" ? null : core.scoreOf(all);
     const fullScore = fullSc ? scoreMeter(fullSc.correct, fullSc.total) : "";
     const fullOrder = all && all.shuffled
       ? core.QUESTIONS.length + " questions, shuffled"
       : core.QUESTIONS.length + " questions in exam order";
-    const full = '<article class="tile"><p class="eyebrow">Learn</p><h3>Full practice set</h3><p>'
+    const full = '<article class="tile"><h3>Full practice set</h3><p>'
       + ui.esc(setNote(all, allPhase, fullOrder)) + "</p>"
-      + fullScore + '<div class="actions">' + setActions("all", allPhase, primaryId === "all") + "</div></article>";
+      + fullScore + '<div class="actions">' + setActions("all", allPhase) + "</div></article>";
 
     const savedList = core.savedIds(state);
     const savedSet = state.sets.saved;
     const savedPhase = core.phaseOf(savedSet);
     const saved = savedList.length
-      ? '<article class="tile"><p class="eyebrow">Review</p><h3>Saved questions</h3><p>'
+      ? '<article class="tile"><h3>Saved questions</h3><p>'
         + ui.esc(savedPhase === "active" ? core.scoreOf(savedSet).answered + " of " + savedList.length + " reviewed" : savedList.length + " saved from misses and pins")
         + '</p><div class="actions">' + ui.btn(savedPhase === "active" ? "Continue" : "Review", savedPhase === "active" ? "start" : "restart", { data: { set: "saved" }, iconEnd: "arrowR", cls: "sm" }) + "</div></article>"
-      : '<article class="tile empty"><p class="eyebrow">Review</p><h3>Saved questions</h3><p>Misses land here automatically. Pin any question with <kbd>S</kbd>.</p></article>';
+      : '<article class="tile empty"><h3>Saved questions</h3><p>Misses land here automatically. Pin any question with <kbd>S</kbd>.</p></article>';
 
     const active = core.hasActiveExam(state);
     const last = state.examHistory[state.examHistory.length - 1];
@@ -105,8 +118,8 @@
       ? "In progress · " + Math.max(0, Math.ceil(core.examTimeLeft(state.exam) / 60000)) + " min left"
       : last ? "Last run " + last.correct + "/" + last.total + " · " + core.QUESTIONS.length + " questions, no hints"
         : core.QUESTIONS.length + " questions · 130 or 170 min · no hints";
-    const mock = '<article class="tile dark"><p class="eyebrow">Exam pressure</p><h3>Timed mock</h3><p>' + ui.esc(mockNote) + '</p><div class="actions">'
-      + (active ? ui.btn("Continue", "exam-continue", { kind: "primary", cls: "sm", iconEnd: "arrowR" }) : ui.btn("Start mock", "exam-intro", { kind: "primary", cls: "sm", icon: "clock" }))
+    const mock = '<article class="tile dark"><h3>Timed mock</h3><p>' + ui.esc(mockNote) + '</p><div class="actions">'
+      + (active ? ui.btn("Continue", "exam-continue", { cls: "sm", iconEnd: "arrowR" }) : ui.btn("Start mock", "exam-intro", { cls: "sm", icon: "clock" }))
       + "</div></article>";
     return '<div class="tiles">' + full + saved + mock + "</div>";
   }
@@ -128,9 +141,10 @@
   }
 
   function html() {
+    const state = A.ctx.state;
     return '<div class="home">'
-      + '<header class="home-head"><div class="head-tools">' + menuHtml() + "</div></header>"
-      + '<div class="home-grid">' + tilesHtml(A.ctx.state) + domainsHtml(A.ctx.state) + "</div></div>";
+      + '<header class="home-head">' + heroCtaHtml(state) + '<div class="head-tools">' + menuHtml() + "</div></header>"
+      + '<div class="home-grid">' + tilesHtml(state) + domainsHtml(state) + "</div></div>";
   }
 
   function introHtml() {

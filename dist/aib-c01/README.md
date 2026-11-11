@@ -16,6 +16,12 @@ The exam tests business judgment: whether to use AI, how to measure value, how t
 
 Public exam facts (from the AWS exam guide and certification page, not from this app): 85 multiple-choice and multiple-response questions, 130 minutes in the exam guide and 170 minutes in the beta overview, scaled score 100–1,000, pass at 700, unanswered items scored wrong. Domain weights: Fundamentals 24%, Strategy and Business Value Creation 28%, Governance and Responsible AI Leadership 24%, Business Readiness, Leadership, and AI Transformation 24%.
 
+## Question order
+
+The first pass of the full set and of each domain follows the order in `questions.js`. Continue stays on that run. Start over on an unfinished exam-order run keeps that order and clears progress.
+
+Try again after a finished full set, domain, or saved review shuffles the questions. **Shuffle on retry** in the settings menu is on by default. Turning it off keeps exam order for those retries. Missed-question review always shuffles. A new timed mock always shuffles. Answer choices are shuffled once per question for that run. A later pass does not replace first-try domain scores.
+
 ## Who it is for
 
 Business people who evaluate, champion, or scale AI: product and program managers, consultants, analysts, sales, marketers, line-of-business leads. A technical background is not required.
