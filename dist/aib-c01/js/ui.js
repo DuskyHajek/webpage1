@@ -49,7 +49,8 @@
     return '<div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120">'
       + '<circle cx="60" cy="60" r="52" class="ring-bg"/>'
       + (empty ? "" : '<circle cx="60" cy="60" r="52" class="ring-val" style="--off:' + off + '" transform="rotate(-90 60 60)"/>')
-      + '</svg><div class="ring-text"><strong>' + (empty ? "—" : Math.round(pct * 100) + "%") + "</strong><span>" + esc(label) + "</span></div></div>";
+      + '</svg><div class="ring-text"><strong>' + (empty ? "—" : Math.round(pct * 100) + "%") + "</strong>"
+      + (label ? "<span>" + esc(label) + "</span>" : "") + "</div></div>";
   }
 
   function track(pct, cls) {
@@ -139,7 +140,7 @@
   }
 
   function sourceLine() {
-    return '<p class="source">Adapted from <a href="https://lnkd.in/p/dGjaKzr7">Matthew Purcell’s unofficial practice set</a>'
+    return '<p class="source">Adapted from <a href="https://www.linkedin.com/posts/purcellmatthew_aws-ai-business-strategist-aib-c01-practice-activity-7514059578137927680-w-jP">Matthew Purcell’s unofficial practice set</a>'
       + ' · <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>. Not endorsed by the author or AWS.</p>';
   }
 

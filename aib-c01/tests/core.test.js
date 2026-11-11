@@ -25,6 +25,13 @@ test("question bank loads with derived domains", () => {
   assert.equal(core.idsFor(core.defaultState(), "2").length, QUESTIONS.filter((q) => q.domain === 2).length);
 });
 
+test("domain weights match the public exam guide", () => {
+  assert.deepEqual(
+    core.DOMAIN_IDS.map((d) => core.DOMAIN_WEIGHT[d]),
+    [24, 28, 24, 24],
+  );
+});
+
 test("display and original letters round-trip under shuffling", () => {
   const store = core.blankSet([multi.id], false);
   const disp = core.displayOptions(store, multi.id);

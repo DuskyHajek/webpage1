@@ -14,7 +14,7 @@ People preparing for AIB-C01 can:
 
 The exam tests business judgment: whether to use AI, how to measure value, how to govern it, and how to scale it. It does not test coding or hands-on AWS implementation.
 
-Public exam facts (from the AWS exam guide and certification page, not from this app): 85 multiple-choice and multiple-response questions, 130 minutes in the exam guide and 170 minutes in the beta overview, scaled score 100–1,000, pass at 700, unanswered items scored wrong.
+Public exam facts (from the AWS exam guide and certification page, not from this app): 85 multiple-choice and multiple-response questions, 130 minutes in the exam guide and 170 minutes in the beta overview, scaled score 100–1,000, pass at 700, unanswered items scored wrong. Domain weights: Fundamentals 24%, Strategy and Business Value Creation 28%, Governance and Responsible AI Leadership 24%, Business Readiness, Leadership, and AI Transformation 24%.
 
 ## Who it is for
 
@@ -24,7 +24,7 @@ Business people who evaluate, champion, or scale AI: product and program manager
 
 | Piece | Source |
 | --- | --- |
-| Questions and rationales | Adapted from [Matthew Purcell’s unofficial AIB-C01 practice set](https://lnkd.in/p/dGjaKzr7), [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Stored in `questions.js`. Keep the footer attribution. Non-commercial use only. |
+| Questions and rationales | Adapted from [Matthew Purcell’s unofficial AIB-C01 practice set](https://www.linkedin.com/posts/purcellmatthew_aws-ai-business-strategist-aib-c01-practice-activity-7514059578137927680-w-jP), [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Stored in `questions.js`. Keep the footer attribution. Non-commercial use only. |
 | Exam facts on the landing page | Public AWS pages, each with a short description on the page: [exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html) (domains, timing, pass mark), [schedule the exam](https://aws.amazon.com/certification/certified-ai-business-strategist/) (credential overview), and the [Skill Builder exam prep plan, English](https://skillbuilder.aws/learning-plan/B8J6KKJ45C/exam-prep-plan--aws-certified-ai-business-strategist-aibc01--english/) (official training, not this practice set). |
 | App, scoring, landing copy | This repo (duskyAI). Progress stays in the browser (`localStorage`). |
 

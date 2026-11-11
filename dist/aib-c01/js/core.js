@@ -2,8 +2,8 @@
 (function (root) {
   const KEY = "aib-c01-practice-v2";
   const KEY_OLD = "aib-c01-practice-v1";
-  const PASS_RAW = 0.82;
   const DOMAIN_SHORT = { 1: "Fundamentals", 2: "Strategy", 3: "Governance", 4: "Readiness" };
+  const DOMAIN_WEIGHT = { 1: 24, 2: 28, 3: 24, 4: 24 };
 
   function createCore(QUESTIONS, rand) {
     const random = rand || Math.random;
@@ -249,7 +249,7 @@
     }
 
     return {
-      KEY, PASS_RAW, QUESTIONS, BY_ID, DOMAINS, DOMAIN_IDS, DOMAIN_SHORT,
+      KEY, QUESTIONS, BY_ID, DOMAINS, DOMAIN_IDS, DOMAIN_SHORT, DOMAIN_WEIGHT,
       todayKey, defaultState, normalizeState, loadState, saveState, shuffleArr,
       savedIds, isPinned, isSaved, togglePin, autoSave, dropAutoSave,
       idsFor, blankSet, displayOptions, displayToOrig, origToDisplay, toggleDraft,

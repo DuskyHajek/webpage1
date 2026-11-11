@@ -4,20 +4,19 @@
 
   function layout(o) {
     const { core, ui } = A;
-    const passLine = Math.ceil(o.total * core.PASS_RAW);
-    const pass = o.correct >= passLine;
+    const pct = o.total ? o.correct / o.total : 0;
     const bars = core.domainBreakdown(o.ids, o.ok).map((g) =>
       '<div class="rbar"><span>Domain ' + g.domain + " · " + ui.esc(core.DOMAIN_SHORT[g.domain] || g.name) + "</span><span>" + g.correct + "/" + g.total + "</span>"
-      + ui.track(g.correct / g.total, "pass-ref") + "</div>").join("");
+      + ui.track(g.correct / g.total) + "</div>").join("");
     const missed = o.ids.map((id, i) => ({ id, i })).filter((row) => o.ok[row.id] === false);
     const rows = missed.map((row) =>
       '<button type="button" class="miss-row" data-act="' + o.missAct + '" data-index="' + row.i + '"><span class="qid">' + ui.esc(row.id) + "</span>"
       + '<span class="ask">' + ui.esc(core.askOf(core.BY_ID[row.id])) + "</span>" + ui.icon("arrowR", "ic-end") + "</button>").join("");
     return '<div class="results">'
       + '<section class="panel score-card"><p class="kicker">' + ui.esc(o.kicker) + "</p>"
-      + '<div class="score-top">' + ui.ring(o.total ? o.correct / o.total : 0, pass ? "pass line met" : "below line") + "<div><p class=\"score-num\">" + o.correct + "<span class=\"big-den\"> / " + o.total + "</span></p>"
-      + '<p class="sub score-denom">' + Math.round((o.correct / o.total) * 100) + "% correct</p></div></div>"
-      + '<p class="sub">' + ui.esc(o.scoreline) + " Unofficial heuristic: " + passLine + "+ correct (about 700 scaled). AWS uses its own scoring.</p>"
+      + '<div class="score-top">' + ui.ring(pct) + "<div><p class=\"score-num\">" + o.correct + "<span class=\"big-den\"> / " + o.total + "</span></p>"
+      + '<p class="sub score-denom">' + Math.round(pct * 100) + "% correct</p></div></div>"
+      + '<p class="sub">' + ui.esc(o.scoreline) + "</p>"
       + '<div class="bars">' + bars + "</div>"
       + '<div class="actions">' + o.actions + "</div></section>"
       + '<section class="panel missed-panel"><div class="panel-head"><h2>Missed</h2><span class="sub">' + (missed.length ? missed.length + " to revisit · click to open" : "Nothing missed") + "</span></div>"

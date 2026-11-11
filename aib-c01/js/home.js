@@ -33,7 +33,9 @@
       const phase = core.phaseOf(set);
       const count = core.idsFor(state, id).length;
       return '<div class="drow">'
-        + '<div class="dname"><span class="dnum">' + d + "</span><div><strong>" + ui.esc(core.DOMAIN_SHORT[d] || "Domain " + d)
+        + '<div class="dname"><span class="dnum">' + d + "</span><div><strong>"
+        + ui.esc(core.DOMAIN_SHORT[d] || "Domain " + d)
+        + (core.DOMAIN_WEIGHT[d] != null ? " · " + core.DOMAIN_WEIGHT[d] + "%" : "")
         + "</strong><small>" + ui.esc(core.DOMAINS[d]) + "</small></div></div>"
         + '<div class="dset"><span>' + ui.esc(setNote(set, phase, count + " questions", true)) + '</span><div class="actions">' + setActions(id, phase) + "</div></div>"
         + "</div>";

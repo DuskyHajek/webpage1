@@ -140,7 +140,7 @@
   }
 
   function sourceLine() {
-    return '<p class="source">Adapted from <a href="https://lnkd.in/p/dGjaKzr7">Matthew Purcell’s unofficial practice set</a>'
+    return '<p class="source">Adapted from <a href="https://www.linkedin.com/posts/purcellmatthew_aws-ai-business-strategist-aib-c01-practice-activity-7514059578137927680-w-jP">Matthew Purcell’s unofficial practice set</a>'
       + ' · <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>. Not endorsed by the author or AWS.</p>';
   }
 
