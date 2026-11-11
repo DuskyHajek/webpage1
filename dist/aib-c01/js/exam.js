@@ -22,9 +22,11 @@
   }
 
   function examPills(ex, cursor, q, revealed) {
-    const pills = [(revealed ? "Review · " : "") + (cursor + 1) + " / " + ex.ids.length, "Domain " + q.domain + " · " + (A.core.DOMAIN_SHORT[q.domain] || "")];
-    if (q.select > 1) pills.push(A.ui.selectLabel(q.select));
-    return pills;
+    return [(revealed ? "Review · " : "") + (cursor + 1) + " / " + ex.ids.length, "Domain " + q.domain + " · " + (A.core.DOMAIN_SHORT[q.domain] || "")];
+  }
+
+  function answeredCount(ex) {
+    return ex.ids.filter((id) => ex.picks[id] && ex.picks[id].length).length;
   }
 
   function html() {
@@ -38,6 +40,8 @@
     const draft = ex.drafts[id] || [];
     const isLast = ex.cursor + 1 >= ex.ids.length;
     const top = revealed ? ui.reveal(ex, id, ex.picks[id] || [], !!ex.ok[id]) : "";
+    const hint = !revealed && q.select > 1 ? ui.pickHint(q.select, draft.length) : "";
+    const answered = answeredCount(ex);
     const nextLabel = revealed ? (isLast ? "Finish review" : "Next") : isLast ? "Submit mock" : "Next";
     const dock = '<div class="dock">'
       + ui.btn("Previous", "exam-prev", { icon: "arrowL", cls: "collapse", disabled: ex.cursor === 0, key: "←", title: "Previous" })
@@ -48,11 +52,12 @@
       + "</div>";
     return ui.qbar({
       pills: examPills(ex, ex.cursor, q, revealed),
+      progress: { value: answered, max: ex.ids.length, label: answered + " of " + ex.ids.length + " answered" },
       right: clockHtml(ex),
       homeTitle: revealed ? "Home" : "Exit (clock keeps running)",
     })
       + ui.dotMap(ex, ex.cursor, { flags: ex.flags, answered: ex.picks, graded: revealed ? ex.ok : null, jumpAct: "jump-exam" })
-      + ui.quizBody(ui.stemHtml(q.parts), top, ui.options(ex, id, draft, revealed, "exam-opt"))
+      + ui.quizBody(ui.stemHtml(q.parts), top, ui.options(ex, id, draft, revealed, "exam-opt"), "", hint)
       + dock;
   }
 
@@ -69,12 +74,16 @@
     if (!ex || ex.submitted) return;
     const id = ex.ids[ex.cursor];
     if (!A.core.displayOptions(ex, id).some((o) => o.displayLetter === letter)) return;
-    const draft = A.core.toggleDraft(ex.drafts[id] || [], letter, A.core.BY_ID[id].select);
+    const q = A.core.BY_ID[id];
+    const draft = A.core.toggleDraft(ex.drafts[id] || [], letter, q.select);
     if (!draft) return;
     ex.drafts[id] = draft;
     ex.picks[id] = A.core.displayToOrig(ex, id, draft);
     A.app.save();
     A.ui.syncOptions(draft);
+    A.ui.syncPickHint(q.select, draft.length);
+    const answered = answeredCount(ex);
+    A.ui.syncProgress(answered, answered + " of " + ex.ids.length + " answered");
   }
 
   function moveTo(index) {

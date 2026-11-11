@@ -2,18 +2,48 @@
 (function (root) {
   const A = (root.AIB = root.AIB || {});
 
-  function setActions(setId, phase) {
+  function primaryLearnId(state) {
+    const { core } = A;
+    if (core.hasActiveExam(state)) return "";
+    if (core.phaseOf(state.sets.all) === "active") return "all";
+    const domain = core.DOMAIN_IDS.find((d) => core.phaseOf(state.sets[String(d)]) === "active");
+    if (domain) return String(domain);
+    if (core.phaseOf(state.sets.all) === "new") return "all";
+    return "";
+  }
+
+  function setActions(setId, phase, primary) {
     const { btn } = A.ui;
     const data = { set: setId };
+    const kind = primary ? "primary" : undefined;
     if (phase === "active") {
-      return btn("Continue", "start", { data, iconEnd: "arrowR", cls: "sm" })
+      return btn("Continue", "start", { data, kind, iconEnd: "arrowR", cls: "sm" })
         + btn("", "restart", { data, kind: "quiet", cls: "sm icon-only", icon: "redo", title: "Start over" });
     }
     if (phase === "done") {
       return btn("Results", "results", { data, cls: "sm" })
         + btn("", "restart", { data, kind: "quiet", cls: "sm icon-only", icon: "redo", title: "Try again" });
     }
-    return btn("Start", "start", { data, iconEnd: "arrowR", cls: "sm" });
+    return btn("Start", "start", { data, kind, iconEnd: "arrowR", cls: "sm" });
+  }
+
+  function scoreMeter(correct, total) {
+    const pct = total ? Math.round(correct / total * 100) : 0;
+    const label = correct + " of " + total + " correct";
+    return '<div class="track" role="meter" aria-valuemin="0" aria-valuemax="' + total + '" aria-valuenow="' + correct + '" aria-label="' + A.ui.esc(label) + '"><i style="width:' + pct + '%"></i></div>';
+  }
+
+  function domainMeter(state, domainId) {
+    const ids = A.core.idsFor(state, String(domainId));
+    const tries = state.firstTry || {};
+    const answeredIds = ids.filter((id) => id in tries);
+    if (!answeredIds.length) return "";
+    const correct = answeredIds.filter((id) => tries[id]).length;
+    const answered = answeredIds.length;
+    const pct = correct / answered;
+    const low = answered >= 5 && pct < 0.6 ? " low" : "";
+    const label = "First try, " + correct + " of " + answered + " answered";
+    return '<div class="track dacc' + low + '" role="meter" aria-valuemin="0" aria-valuemax="' + answered + '" aria-valuenow="' + correct + '" aria-label="' + A.ui.esc(label) + '"><i style="width:' + Math.round(pct * 100) + '%"></i></div>';
   }
 
   function setNote(set, phase, fallback, compact) {
@@ -27,17 +57,20 @@
 
   function domainsHtml(state) {
     const { core, ui } = A;
+    const primaryId = primaryLearnId(state);
     const rows = core.DOMAIN_IDS.map((d) => {
       const id = String(d);
       const set = state.sets[id];
       const phase = core.phaseOf(set);
       const count = core.idsFor(state, id).length;
+      const weight = core.DOMAIN_WEIGHT[d] != null ? '<span class="wt">' + core.DOMAIN_WEIGHT[d] + "% of exam</span>" : "";
       return '<div class="drow">'
         + '<div class="dname"><span class="dnum">' + d + "</span><div><strong>"
-        + ui.esc(core.DOMAIN_SHORT[d] || "Domain " + d)
-        + (core.DOMAIN_WEIGHT[d] != null ? " · " + core.DOMAIN_WEIGHT[d] + "%" : "")
+        + ui.esc(core.DOMAIN_SHORT[d] || "Domain " + d) + weight
         + "</strong><small>" + ui.esc(core.DOMAINS[d]) + "</small></div></div>"
-        + '<div class="dset"><span>' + ui.esc(setNote(set, phase, count + " questions", true)) + '</span><div class="actions">' + setActions(id, phase) + "</div></div>"
+        + '<div class="dset"><span>' + ui.esc(setNote(set, phase, count + " questions", true)) + "</span>"
+        + domainMeter(state, id)
+        + '<div class="actions">' + setActions(id, phase, primaryId === id) + "</div></div>"
         + "</div>";
     }).join("");
     return '<section class="panel domains"><div class="panel-head"><h2>Domains</h2></div>' + rows + "</section>";
@@ -47,8 +80,12 @@
     const { core, ui } = A;
     const all = state.sets.all;
     const allPhase = core.phaseOf(all);
+    const primaryId = primaryLearnId(state);
+    const fullSc = allPhase === "new" ? null : core.scoreOf(all);
+    const fullScore = fullSc ? scoreMeter(fullSc.correct, fullSc.total) : "";
     const full = '<article class="tile"><p class="eyebrow">Learn</p><h3>Full practice set</h3><p>'
-      + ui.esc(setNote(all, allPhase, core.QUESTIONS.length + " questions in exam order")) + '</p><div class="actions">' + setActions("all", allPhase) + "</div></article>";
+      + ui.esc(setNote(all, allPhase, core.QUESTIONS.length + " questions in exam order")) + "</p>"
+      + fullScore + '<div class="actions">' + setActions("all", allPhase, primaryId === "all") + "</div></article>";
 
     const savedList = core.savedIds(state);
     const savedSet = state.sets.saved;

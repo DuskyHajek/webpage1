@@ -1,0 +1,185 @@
+/* polish.css
+   Load AFTER base.css, home.css, quiz.css, seo.css.
+   Nothing here replaces your files; it overrides tokens and a few rules.
+   Sections: 1 tokens · 2 brand · 3 calmer exam · 4 home · 5 quiz · 6 dark (dusk) */
+
+
+/* 1. TOKENS ------------------------------------------------------------ */
+:root {
+  color-scheme: light dark;
+
+  --accent-strong: #0a4538;   /* primary hover/pressed */
+  --accent-soft:   #1f8a6e;   /* was hard-coded in .bar */
+  --on-solid:      #fff;      /* text on any solid fill (ink, accent, rust) */
+
+  /* gold was ~4.4:1 on paper for 11.5px kicker text; this is ~5.2:1 */
+  --gold: #7c5f28;
+}
+
+
+/* 2. BRAND (small, on purpose) ---------------------------------------- */
+
+/* Wordmark follows the text color, so dark mode does not need a second logo. */
+.site-logo,
+.site-logo:hover { color: var(--ink); text-decoration: none; }
+.wordmark {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: currentColor;
+}
+.wordmark strong {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+/* Primary action = the one green thing you can press. Ink stays for selection. */
+.btn.primary { --bg: var(--accent); --bd: var(--accent); --fg: var(--on-solid); }
+.btn.primary:hover:not(:disabled) { --bg: var(--accent-strong); --bd: var(--accent-strong); }
+
+/* Make every solid fill use the same readable text colour (matters in dark mode) */
+.pill.strong,
+.dot.on,
+.tag,
+.opt[aria-pressed="true"] .letter,
+.opt.correct .letter,
+.opt.wrong .letter { color: var(--on-solid); }
+
+/* One "dusk" hairline: green into gold, the two brand colours */
+.site-nav { position: relative; border-bottom: 0; }
+.site-nav::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--gold) 55%, transparent);
+  opacity: .55;
+}
+
+.bar span { background: linear-gradient(90deg, var(--accent), var(--accent-soft)); }
+
+::selection { background: var(--accent-bg); color: var(--ink); }
+button { -webkit-tap-highlight-color: transparent; }
+
+/* background-attachment: fixed is ignored on iOS and repaints on scroll elsewhere */
+body { background-attachment: scroll; }
+
+
+/* 3. CALMER EXAM ------------------------------------------------------- */
+/* Motion that answers a click is fine. Motion that decorates is removed. */
+.btn.primary::after { content: none; }                 /* hover shimmer */
+.drow:hover .dnum { transform: none; }                 /* rotating number tile */
+body.in-quiz .opt:hover:not(:disabled) { transform: none; }  /* options sliding sideways */
+.just-revealed .opt.wrong { animation: none; }         /* shake on a wrong answer */
+
+
+/* 4. HOME -------------------------------------------------------------- */
+
+/* Left column is taller than the Domains card. Stretch the card and spread rows.
+   Assumes the Domains card is a direct child of .home-grid with class .panel. */
+@media (min-width: 960px) {
+  .home-grid { align-items: stretch; }
+  .tile { min-height: 0; }
+  .home-grid > .panel { display: flex; flex-direction: column; }
+  .home-grid > .panel > .drow { flex: 1; }
+}
+
+/* "24% of exam" vs "20 questions" read as the same kind of number.
+   Markup:  <strong>Fundamentals <span class="wt">24% of exam</span></strong> */
+.dname .wt {
+  color: var(--muted);
+  font: 500 12.5px var(--sans);
+  letter-spacing: 0;
+}
+
+/* Per-domain accuracy under or beside the question count.
+   Markup:  <div class="track dacc"><i style="width:72%"></i></div>
+   Add .low when accuracy is under ~60%. */
+.dacc { width: 88px; height: 4px; flex: none; }
+.dacc.low i { background: var(--rust); }
+
+/* Row is clickable (wire a click handler on .drow that triggers its button) */
+.drow { cursor: pointer; }
+.drow:hover .dname strong { color: var(--accent); }
+.drow:hover .dname .wt { color: var(--muted); }
+.tile .track { margin-top: 12px; }
+.home .track i { animation: none; }
+
+
+/* 5. QUIZ -------------------------------------------------------------- */
+
+/* "Select 2" for multiple-response items.
+   Markup:  <p class="pick-hint">Select 2</p>  (above .opts) */
+.pick-hint {
+  display: inline-flex;
+  margin: 0 0 10px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--gold-bg);
+  color: var(--gold);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+/* iOS home-indicator clearance for the bottom dock */
+.dock { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+
+
+/* 6. DUSK (dark mode) -------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:  #14110e;
+    --card:   #1c1915;
+    --card-2: #221e19;
+    --ink:    #f2ede3;
+    --ink-2:  #d8d1c4;
+    --muted:  #a69e91;
+    --line:   #2f2a23;
+    --line-strong: #423b31;
+    --track:  #2b261f;
+
+    --accent:        #4cb99b;
+    --accent-strong: #7fd3ba;
+    --accent-soft:   #2f9f82;
+    --accent-bg:     #14302a;
+    --rust:    #f29469;
+    --rust-bg: #31201a;
+    --gold:    #d6b46d;
+    --gold-bg: #2c2416;
+
+    --on-solid: #14110e;   /* ink is light in dark mode, so text on it must be dark */
+
+    --shadow-sm:   0 1px 0 rgba(0,0,0,.3), 0 2px 8px rgba(0,0,0,.25);
+    --shadow:      0 1px 0 rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+    --shadow-lift: 0 2px 0 rgba(0,0,0,.3), 0 14px 30px rgba(0,0,0,.5);
+  }
+
+  body {
+    background-image:
+      radial-gradient(900px 500px at 100% -10%, rgba(76, 185, 155, 0.08), transparent 60%),
+      radial-gradient(700px 420px at -10% 110%, rgba(214, 180, 109, 0.06), transparent 60%),
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.045) 1px, transparent 0);
+  }
+
+  .btn.quiet:hover:not(:disabled),
+  .menu[open] summary { background: rgba(255, 255, 255, 0.07); }
+
+  .explain.good { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+  .explain.bad  { border-color: color-mix(in srgb, var(--rust) 45%, transparent); }
+
+  /* The "exam pressure" tile used var(--ink) as its background; that is now light. */
+  .tile.dark {
+    background-color: #0c0a08;
+    border-color: var(--line);
+    color: #f2ede3;
+    background-image: radial-gradient(300px 160px at 100% 0%, rgba(76, 185, 155, 0.35), transparent 70%);
+  }
+  .tile.dark .eyebrow { color: #d6b46d; }
+  .tile.dark p:not(.eyebrow) { color: #b4ab9d; }
+  .tile.dark .btn.primary { --bg: #f2ede3; --fg: #14110e; --bd: #f2ede3; }
+  .tile.dark .btn.primary:hover { --bg: #fff; --bd: #fff; }
+}

@@ -12,9 +12,7 @@
   }
 
   function quizPills(set, cursor, q) {
-    const pills = [(cursor + 1) + " / " + set.ids.length, "Domain " + q.domain + " · " + (A.core.DOMAIN_SHORT[q.domain] || "")];
-    if (q.select > 1) pills.push(A.ui.selectLabel(q.select));
-    return pills;
+    return [(cursor + 1) + " / " + set.ids.length, "Domain " + q.domain + " · " + (A.core.DOMAIN_SHORT[q.domain] || "")];
   }
 
   function html() {
@@ -32,16 +30,18 @@
     const saved = core.isSaved(state, id);
     const isLast = set.cursor + 1 >= set.ids.length;
     const top = revealed ? ui.reveal(set, id, picked, !!set.ok[id]) : "";
+    const hint = !revealed && q.select > 1 ? ui.pickHint(q.select, draft.length) : "";
     const go = revealed
       ? ui.btn(isLast ? "See results" : "Next question", "next", { kind: "primary", id: "go", iconEnd: "arrowR", key: "Enter" })
       : ui.btn(goLabel(q, need), "check", { kind: "primary", id: "go", disabled: need !== 0, key: "Enter" });
     return ui.qbar({
       pills: quizPills(set, set.cursor, q),
+      progress: { value: set.cursor + 1, max: set.ids.length, label: "Question " + (set.cursor + 1) + " of " + set.ids.length },
       right: "",
       homeTitle: "Home",
     })
       + ui.dotMap(set, set.cursor, { graded: set.ok, answered: set.picks, jumpAct: "jump-learn" })
-      + ui.quizBody(ui.stemHtml(q.parts), top, ui.options(set, id, draft, revealed, "opt"), A.ctx.justRevealed ? "just-revealed" : "")
+      + ui.quizBody(ui.stemHtml(q.parts), top, ui.options(set, id, draft, revealed, "opt"), A.ctx.justRevealed ? "just-revealed" : "", hint)
       + '<div class="dock">'
       + ui.btn("Previous", "prev", { icon: "arrowL", cls: "collapse", disabled: set.cursor === 0, key: "←", title: "Previous" })
       + ui.btn(saved ? "Saved" : "Save", "toggle-save", { icon: "bookmark", cls: "collapse", pressed: saved, key: "S", title: saved ? "Remove from saved" : "Save for later" })
@@ -93,6 +93,7 @@
     set.drafts[id] = draft;
     A.app.save();
     A.ui.syncOptions(draft);
+    A.ui.syncPickHint(q.select, draft.length);
     const go = document.getElementById("go");
     if (go) {
       const need = q.select - draft.length;

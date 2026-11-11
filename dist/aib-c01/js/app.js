@@ -139,6 +139,14 @@
 
   document.addEventListener("click", (event) => {
     closeMenus(event.target.closest("details.menu"));
+    const row = event.target.closest(".drow");
+    if (row && app.contains(row) && !event.target.closest("[data-act]")) {
+      const sel = window.getSelection();
+      if (sel && !sel.isCollapsed) return;
+      const main = row.querySelector(".dset .btn:not(.icon-only)");
+      if (main && !main.disabled) main.click();
+      return;
+    }
     const el = event.target.closest("[data-act]");
     if (!el || !app.contains(el) || el.disabled) return;
     const fn = ACTIONS[el.dataset.act];

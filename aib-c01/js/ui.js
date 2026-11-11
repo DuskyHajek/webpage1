@@ -85,11 +85,24 @@
     let html = '<nav class="navstrip" aria-label="Question map">';
     store.ids.forEach((id, i) => {
       let cls = "dot";
-      if (i === cursor) cls += " on";
-      if (flags[id]) cls += " flagged";
-      if ((answered[id] && answered[id].length) || (store.drafts && store.drafts[id] && store.drafts[id].length)) cls += " answered";
-      if (graded && id in graded) cls += graded[id] ? " hit" : " miss";
-      html += '<button type="button" class="' + cls + '" data-act="' + o.jumpAct + '" data-index="' + i + '" aria-label="Question ' + (i + 1) + '">' + (i + 1) + "</button>";
+      const bits = ["Question " + (i + 1)];
+      if (i === cursor) {
+        cls += " on";
+        bits.push("current");
+      }
+      if (flags[id]) {
+        cls += " flagged";
+        bits.push("flagged");
+      }
+      if ((answered[id] && answered[id].length) || (store.drafts && store.drafts[id] && store.drafts[id].length)) {
+        cls += " answered";
+        bits.push("answered");
+      }
+      if (graded && id in graded) {
+        cls += graded[id] ? " hit" : " miss";
+        bits.push(graded[id] ? "correct" : "missed");
+      }
+      html += '<button type="button" class="' + cls + '" data-act="' + o.jumpAct + '" data-index="' + i + '" aria-label="' + esc(bits.join(", ")) + '">' + (i + 1) + "</button>";
     });
     return html + "</nav>";
   }
@@ -133,10 +146,43 @@
 
   function qbar(o) {
     const right = o.right ? '<div class="qright">' + o.right + "</div>" : "";
+    let bar = "";
+    if (o.progress && o.progress.max) {
+      const value = o.progress.value;
+      const max = o.progress.max;
+      const pct = Math.max(0, Math.min(100, Math.round(value / max * 100)));
+      bar = '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + max + '" aria-valuenow="' + value + '" aria-label="' + esc(o.progress.label) + '"><span style="width:' + pct + '%"></span></div>';
+    }
     return '<header class="qbar"><div class="qbar-row">'
       + btn("", "home", { kind: "quiet", cls: "icon-only", icon: "home", title: o.homeTitle || "Home" })
       + '<div class="qmeta">' + o.pills.map((p, i) => '<span class="pill' + (i === 0 ? " strong" : "") + '">' + esc(p) + "</span>").join("") + "</div>"
-      + right + "</div></header>";
+      + right + "</div></header>" + bar;
+  }
+
+  function pickHintText(select, picked) {
+    let text = "Select " + select;
+    if (picked > 0) text += " · " + picked + " of " + select + " selected";
+    return text;
+  }
+
+  function pickHint(select, picked) {
+    if (!select || select < 2) return "";
+    return '<p class="pick-hint" id="pick-hint" aria-live="polite">' + esc(pickHintText(select, picked)) + "</p>";
+  }
+
+  function syncPickHint(select, picked) {
+    const el = document.getElementById("pick-hint");
+    if (el && select > 1) el.textContent = pickHintText(select, picked);
+  }
+
+  function syncProgress(value, label) {
+    const el = document.querySelector('.bar[role="progressbar"]');
+    if (!el) return;
+    const max = Number(el.getAttribute("aria-valuemax")) || 1;
+    el.setAttribute("aria-valuenow", String(value));
+    if (label) el.setAttribute("aria-label", label);
+    const span = el.querySelector("span");
+    if (span) span.style.width = Math.max(0, Math.min(100, Math.round(value / max * 100))) + "%";
   }
 
   function sourceLine() {
@@ -144,10 +190,10 @@
       + ' · <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>. Not endorsed by the author or AWS.</p>';
   }
 
-  function quizBody(stem, top, opts, cls) {
+  function quizBody(stem, top, opts, cls, hint) {
     return '<div class="quiz-body' + (cls ? " " + cls : "") + '">'
       + '<section class="pane stem-pane"><div class="stem">' + stem + "</div></section>"
-      + '<section class="pane opts-pane">' + top + '<div class="opts" role="group" aria-label="Answers">' + opts + "</div></section></div>"
+      + '<section class="pane opts-pane">' + top + (hint || "") + '<div class="opts" role="group" aria-label="Answers">' + opts + "</div></section></div>"
       + sourceLine();
   }
 
@@ -165,5 +211,5 @@
     if (dot) strip.scrollLeft = dot.offsetLeft - strip.offsetLeft - strip.clientWidth / 2 + dot.offsetWidth / 2;
   }
 
-  A.ui = { esc, icon, btn, ring, track, stemHtml, dotMap, options, reveal, selectLabel, qbar, quizBody, syncOptions, centerActiveDot };
+  A.ui = { esc, icon, btn, ring, track, stemHtml, dotMap, options, reveal, selectLabel, qbar, pickHint, quizBody, syncOptions, syncPickHint, syncProgress, centerActiveDot };
 })(this);
