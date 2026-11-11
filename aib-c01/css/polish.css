@@ -6,7 +6,7 @@
 
 /* 1. TOKENS ------------------------------------------------------------ */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   --accent-strong: #0a4538;   /* primary hover/pressed */
   --accent-soft:   #1f8a6e;   /* was hard-coded in .bar */
@@ -129,9 +129,9 @@ body.in-quiz .opt:hover:not(:disabled) { transform: none; }  /* options sliding 
 .dock { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
 
 
-/* 6. DUSK (dark mode) -------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
+/* 6. DUSK (dark mode, only when chosen) ------------------------------- */
+html[data-theme="dark"] {
+  color-scheme: dark;
     --paper:  #14110e;
     --card:   #1c1915;
     --card-2: #221e19;
@@ -158,28 +158,27 @@ body.in-quiz .opt:hover:not(:disabled) { transform: none; }  /* options sliding 
     --shadow-lift: 0 2px 0 rgba(0,0,0,.3), 0 14px 30px rgba(0,0,0,.5);
   }
 
-  body {
-    background-image:
-      radial-gradient(900px 500px at 100% -10%, rgba(76, 185, 155, 0.08), transparent 60%),
-      radial-gradient(700px 420px at -10% 110%, rgba(214, 180, 109, 0.06), transparent 60%),
-      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.045) 1px, transparent 0);
-  }
-
-  .btn.quiet:hover:not(:disabled),
-  .menu[open] summary { background: rgba(255, 255, 255, 0.07); }
-
-  .explain.good { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
-  .explain.bad  { border-color: color-mix(in srgb, var(--rust) 45%, transparent); }
-
-  /* The "exam pressure" tile used var(--ink) as its background; that is now light. */
-  .tile.dark {
-    background-color: #0c0a08;
-    border-color: var(--line);
-    color: #f2ede3;
-    background-image: radial-gradient(300px 160px at 100% 0%, rgba(76, 185, 155, 0.35), transparent 70%);
-  }
-  .tile.dark .eyebrow { color: #d6b46d; }
-  .tile.dark p:not(.eyebrow) { color: #b4ab9d; }
-  .tile.dark .btn.primary { --bg: #f2ede3; --fg: #14110e; --bd: #f2ede3; }
-  .tile.dark .btn.primary:hover { --bg: #fff; --bd: #fff; }
+html[data-theme="dark"] body {
+  background-image:
+    radial-gradient(900px 500px at 100% -10%, rgba(76, 185, 155, 0.08), transparent 60%),
+    radial-gradient(700px 420px at -10% 110%, rgba(214, 180, 109, 0.06), transparent 60%),
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.045) 1px, transparent 0);
 }
+
+html[data-theme="dark"] .btn.quiet:hover:not(:disabled),
+html[data-theme="dark"] .menu[open] summary { background: rgba(255, 255, 255, 0.07); }
+
+html[data-theme="dark"] .explain.good { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+html[data-theme="dark"] .explain.bad  { border-color: color-mix(in srgb, var(--rust) 45%, transparent); }
+
+/* The exam-pressure tile used --ink as its background; in dark mode that token is light. */
+html[data-theme="dark"] .tile.dark {
+  background-color: #0c0a08;
+  border-color: var(--line);
+  color: #f2ede3;
+  background-image: radial-gradient(300px 160px at 100% 0%, rgba(76, 185, 155, 0.35), transparent 70%);
+}
+html[data-theme="dark"] .tile.dark .eyebrow { color: #d6b46d; }
+html[data-theme="dark"] .tile.dark p:not(.eyebrow) { color: #b4ab9d; }
+html[data-theme="dark"] .tile.dark .btn.primary { --bg: #f2ede3; --fg: #14110e; --bd: #f2ede3; }
+html[data-theme="dark"] .tile.dark .btn.primary:hover { --bg: #fff; --bd: #fff; }

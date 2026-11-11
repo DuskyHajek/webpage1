@@ -110,8 +110,11 @@
 
   function menuHtml() {
     const { btn, icon } = A.ui;
+    const dark = A.ctx.state.prefs && A.ctx.state.prefs.theme === "dark";
     return '<details class="menu"><summary class="btn quiet icon-only" aria-label="Settings" title="Settings">' + icon("sliders") + "</summary>"
       + '<div class="menu-pop">'
+      + btn("Dark mode", "theme", { kind: "quiet", icon: dark ? "moon" : "sun", pressed: dark })
+      + "<hr>"
       + btn("Export progress", "export", { kind: "quiet", icon: "download" })
       + btn("Import progress", "import", { kind: "quiet", icon: "upload" })
       + "<hr>" + btn("Clear all progress", "clear", { kind: "danger", icon: "trash" })

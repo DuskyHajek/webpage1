@@ -3,8 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#14110e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3efe6">
+<script>
+try {
+  var saved = localStorage.getItem("aib-c01-practice-v2");
+  var prefs = saved && JSON.parse(saved).prefs;
+  if (prefs && prefs.theme === "dark") {
+    document.documentElement.dataset.theme = "dark";
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", "#14110e");
+  }
+} catch (e) {}
+</script>
 <title>AIB-C01 Practice Exam | AWS AI Business Strategist</title>
 <meta name="description" content="Free unofficial AIB-C01 practice test for the AWS Certified AI Business Strategist exam: scenario questions, domain scores, and a timed mock. Not affiliated with AWS.">
 <link rel="canonical" href="https://www.duskyai.com/aib-c01/">

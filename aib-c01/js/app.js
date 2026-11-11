@@ -43,7 +43,15 @@
     }
   }
 
+  function applyTheme() {
+    const dark = A.ctx.state.prefs && A.ctx.state.prefs.theme === "dark";
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", dark ? "#14110e" : "#f3efe6");
+  }
+
   function render() {
+    applyTheme();
     A.exam.stopClock();
     const name = A.ctx.view.name;
     if (name === "home") app.innerHTML = A.home.html();
@@ -99,9 +107,18 @@
 
   function clearAll() {
     if (!confirm("Clear all progress, saved questions, and mock history?")) return;
+    const theme = A.ctx.state.prefs && A.ctx.state.prefs.theme;
     A.ctx.state = A.core.defaultState();
+    if (theme === "dark") A.ctx.state.prefs.theme = "dark";
     save();
     go({ name: "home" });
+  }
+
+  function toggleTheme() {
+    if (!A.ctx.state.prefs) A.ctx.state.prefs = {};
+    A.ctx.state.prefs.theme = A.ctx.state.prefs.theme === "dark" ? "light" : "dark";
+    save();
+    render();
   }
 
   const num = (el, key) => Number(el.dataset[key] || 0);
@@ -129,6 +146,7 @@
     "exam-submit": () => A.exam.submit(false),
     "exam-review": (el) => A.exam.review(num(el, "index")),
     export: exportProgress,
+    theme: toggleTheme,
     import: () => importFile.click(),
     clear: clearAll,
   };
