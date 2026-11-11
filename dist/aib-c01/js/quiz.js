@@ -53,12 +53,14 @@
     const core = A.core;
     if (setId === "saved" && !core.idsFor(state, setId).length) return A.app.go({ name: "home" });
     if (restart || !state.sets[setId]) {
-      const ids = setId.startsWith("missed:") ? state.sets[setId].ids.slice() : core.idsFor(state, setId);
-      state.sets[setId] = core.blankSet(ids, false);
+      const previous = state.sets[setId] && state.sets[setId].ids;
+      const ids = setId.startsWith("missed:") ? previous.slice() : core.idsFor(state, setId);
+      const shuffle = core.retryShuffles(state, setId, !!restart);
+      state.sets[setId] = core.blankSet(ids, shuffle, previous);
     } else if (setId === "saved") {
       const set = state.sets.saved;
       const cursorId = set.ids[set.cursor];
-      set.ids = core.savedIds(state);
+      set.ids = core.keepSavedOrder(set.ids, core.savedIds(state));
       const next = set.ids.indexOf(cursorId);
       set.cursor = next >= 0 ? next : Math.min(set.cursor, Math.max(0, set.ids.length - 1));
     }

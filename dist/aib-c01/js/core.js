@@ -27,7 +27,7 @@
         goalPerDay: 10,
         exam: null,
         examHistory: [],
-        prefs: { shuffleQuestions: false, shuffleMockQuestions: true },
+        prefs: { shuffleQuestions: false, shuffleMockQuestions: true, shuffleOnRetry: true },
       };
     }
 
@@ -35,6 +35,10 @@
       const d = defaultState();
       Object.keys(d).forEach((k) => {
         if (s[k] === undefined) s[k] = d[k];
+      });
+      if (!s.prefs || typeof s.prefs !== "object") s.prefs = d.prefs;
+      else Object.keys(d.prefs).forEach((k) => {
+        if (s.prefs[k] === undefined) s.prefs[k] = d.prefs[k];
       });
       return s;
     }
@@ -76,6 +80,26 @@
       return a;
     }
 
+    function sameSequence(a, b) {
+      return a.length === b.length && a.every((id, i) => id === b[i]);
+    }
+
+    function sameIds(a, b) {
+      if (a.length !== b.length) return false;
+      const count = {};
+      a.forEach((id) => { count[id] = (count[id] || 0) + 1; });
+      return b.every((id) => count[id] && count[id]--);
+    }
+
+    function shuffleDifferent(ids, previous) {
+      if (ids.length < 2) return ids.slice();
+      const prior = previous && sameIds(previous, ids) ? previous : ids;
+      let next = shuffleArr(ids);
+      if (sameSequence(next, prior)) next = shuffleArr(ids);
+      if (sameSequence(next, prior)) next = prior.slice(1).concat(prior[0]);
+      return next;
+    }
+
     function savedIds(state) {
       const keys = new Set(Object.keys(state.saved || {}));
       return QUESTIONS.map((q) => q.id).filter((id) => keys.has(id));
@@ -95,8 +119,28 @@
       return QUESTIONS.filter((q) => String(q.domain) === setId).map((q) => q.id);
     }
 
-    function blankSet(ids, shuffle) {
-      return { ids: shuffle ? shuffleArr(ids) : ids.slice(), cursor: 0, phase: "pick", picks: {}, ok: {}, drafts: {}, optionOrder: {} };
+    function keepSavedOrder(currentIds, freshIds) {
+      const fresh = new Set(freshIds);
+      const kept = currentIds.filter((id) => fresh.has(id));
+      const have = new Set(kept);
+      freshIds.forEach((id) => { if (!have.has(id)) kept.push(id); });
+      return kept;
+    }
+
+    function retryShuffles(state, setId, restart) {
+      if (String(setId).startsWith("missed:")) return true;
+      if (!restart) return false;
+      if (state.prefs && state.prefs.shuffleOnRetry === false) return false;
+      const old = state.sets && state.sets[setId];
+      return !!(old && (old.phase === "done" || old.shuffled));
+    }
+
+    function blankSet(ids, shuffle, previous) {
+      return {
+        ids: shuffle ? shuffleDifferent(ids, previous) : ids.slice(),
+        cursor: 0, phase: "pick", picks: {}, ok: {}, drafts: {}, optionOrder: {},
+        shuffled: !!shuffle,
+      };
     }
 
     function ensureOptionOrder(store, id) {
@@ -252,7 +296,7 @@
       KEY, QUESTIONS, BY_ID, DOMAINS, DOMAIN_IDS, DOMAIN_SHORT, DOMAIN_WEIGHT,
       todayKey, defaultState, normalizeState, loadState, saveState, shuffleArr,
       savedIds, isPinned, isSaved, togglePin, autoSave, dropAutoSave,
-      idsFor, blankSet, displayOptions, displayToOrig, origToDisplay, toggleDraft,
+      idsFor, keepSavedOrder, retryShuffles, blankSet, displayOptions, displayToOrig, origToDisplay, toggleDraft,
       letters, same, askOf, scoreOf, phaseOf, domainBreakdown, recordAnswer, migrateAnswers,
       newExam, hasActiveExam, examTimeLeft, examBlankCount, gradeExam,
     };

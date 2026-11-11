@@ -121,6 +121,14 @@
     render();
   }
 
+  function toggleShuffleRetry() {
+    if (!A.ctx.state.prefs) A.ctx.state.prefs = {};
+    const on = A.ctx.state.prefs.shuffleOnRetry !== false;
+    A.ctx.state.prefs.shuffleOnRetry = !on;
+    save();
+    render();
+  }
+
   const num = (el, key) => Number(el.dataset[key] || 0);
   const ACTIONS = {
     home: () => go({ name: "home" }),
@@ -147,6 +155,7 @@
     "exam-review": (el) => A.exam.review(num(el, "index")),
     export: exportProgress,
     theme: toggleTheme,
+    "shuffle-retry": toggleShuffleRetry,
     import: () => importFile.click(),
     clear: clearAll,
   };

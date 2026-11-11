@@ -83,8 +83,11 @@
     const primaryId = primaryLearnId(state);
     const fullSc = allPhase === "new" ? null : core.scoreOf(all);
     const fullScore = fullSc ? scoreMeter(fullSc.correct, fullSc.total) : "";
+    const fullOrder = all && all.shuffled
+      ? core.QUESTIONS.length + " questions, shuffled"
+      : core.QUESTIONS.length + " questions in exam order";
     const full = '<article class="tile"><p class="eyebrow">Learn</p><h3>Full practice set</h3><p>'
-      + ui.esc(setNote(all, allPhase, core.QUESTIONS.length + " questions in exam order")) + "</p>"
+      + ui.esc(setNote(all, allPhase, fullOrder)) + "</p>"
       + fullScore + '<div class="actions">' + setActions("all", allPhase, primaryId === "all") + "</div></article>";
 
     const savedList = core.savedIds(state);
@@ -110,10 +113,13 @@
 
   function menuHtml() {
     const { btn, icon } = A.ui;
-    const dark = A.ctx.state.prefs && A.ctx.state.prefs.theme === "dark";
+    const prefs = A.ctx.state.prefs || {};
+    const dark = prefs.theme === "dark";
+    const shuffleRetry = prefs.shuffleOnRetry !== false;
     return '<details class="menu"><summary class="btn quiet icon-only" aria-label="Settings" title="Settings">' + icon("sliders") + "</summary>"
       + '<div class="menu-pop">'
       + btn("Dark mode", "theme", { kind: "quiet", icon: dark ? "moon" : "sun", pressed: dark })
+      + btn("Shuffle on retry", "shuffle-retry", { kind: "quiet", icon: "redo", pressed: shuffleRetry, title: "Finished full set, domain, and saved review. Missed questions always shuffle." })
       + "<hr>"
       + btn("Export progress", "export", { kind: "quiet", icon: "download" })
       + btn("Import progress", "import", { kind: "quiet", icon: "upload" })
